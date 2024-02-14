@@ -29,6 +29,16 @@ public class Usuario {
     @OneToOne
     private Turno turno;
 
+    public Usuario(String dni, String nombre, String apellido, String email, String password,boolean activo){
+        this.dni=dni;
+        this.nombre=nombre;
+        this.apellido=apellido;
+        this.email=email;
+        this.password=password;
+        this.activo=activo;
+
+    }
+
 
 
 }
