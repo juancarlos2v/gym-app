@@ -4,6 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UsuarioDao extends CrudRepository<Usuario, Long>{
     Usuario findByDni(String dni);
+    Object findById(String idUsuario);
 
     
 }

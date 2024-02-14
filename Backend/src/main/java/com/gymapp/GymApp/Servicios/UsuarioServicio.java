@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.gymapp.GymApp.Dao.UsuarioDao;
 import com.gymapp.GymApp.Entidades.Usuario;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -37,10 +39,27 @@ public class UsuarioServicio implements IUsuarioServicio {
     }
 
     @Override
-    public Usuario borrarUsuario(Long id) {
-        Usuario usuario = usuarioDao.findById(id).orElse(null);
+    @Transactional(readOnly = true)
+    public List<Usuario> listarUsuarios() {
+        return (List<Usuario>) usuarioDao.findAll();
+    }
+
+    @Override
+    @Transactional
+    public Usuario guardarCambiar(Usuario usuario) {
+        return usuarioDao.save(usuario);
+    };
+
+    @Override
+    @Transactional
+    public void borrar(Usuario usuario) {
         usuarioDao.delete(usuario);
-        return usuario;
+    };
+
+    @Override
+    @Transactional(readOnly = true)
+    public Usuario buscarPorId(Long idUsuario) {
+        return usuarioDao.findById(idUsuario).orElse(null);
     }
 
 
