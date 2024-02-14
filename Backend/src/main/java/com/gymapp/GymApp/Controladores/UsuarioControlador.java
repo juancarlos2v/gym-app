@@ -26,13 +26,5 @@ public class UsuarioControlador {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/")
-    public ResponseEntity<Object> borrarUsuario(@PathVariable Long id){
-        usuarioServicio.borrarUsuario(id);
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
-    }
-
-
-
 
 }
