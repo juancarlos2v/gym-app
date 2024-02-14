@@ -26,7 +26,19 @@ public class UsuarioControlador {
 
      return new ResponseEntity<>(HttpStatus.CREATED);
 
-     }*/
+     }
+
+     listar agustina
+     buscar por id
+
+
+     cambiar datos
+     reservar turno
+
+
+    registro
+    borrar (baja)
+     */
 
 
 
