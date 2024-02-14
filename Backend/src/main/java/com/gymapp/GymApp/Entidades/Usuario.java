@@ -13,11 +13,20 @@ import lombok.*;
 @Setter
 public class Usuario {
 
+<<<<<<< Updated upstream
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
 
     private String dni;
+=======
+   @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idUsuario")
+    private Long idUsuario;
+    @Column(name = "dni", unique = true)
+    private String dni;;
+>>>>>>> Stashed changes
     private String nombre;
     private String apellido;
     private String email;
