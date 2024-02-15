@@ -21,9 +21,9 @@ public class UsuarioServicio implements IUsuarioServicio {
     }
 
     @Override
-    public Usuario registrarUsuario(String dni, String nombre, String apellido, String email, String password){
+    public Usuario registrarUsuario(String dni, String nombre, String apellido, String email, String password) {
 
-        Usuario usuario= new Usuario(dni,nombre,apellido,email,password,true);
+        Usuario usuario = new Usuario(dni, nombre, apellido, email, password, true);
         usuarioDao.save(usuario);
         return usuario;
 
@@ -31,10 +31,9 @@ public class UsuarioServicio implements IUsuarioServicio {
 
     @Override
     public Usuario bajaUsuario(String dni) {
-
-        Usuario usuario=usuarioDao.findByDni(dni);
+        Usuario usuario = usuarioDao.findByDni(dni);
         usuario.setActivo(false);
-    usuarioDao.save(usuario);
+        usuarioDao.save(usuario);
         return usuario;
     }
 
@@ -48,19 +47,22 @@ public class UsuarioServicio implements IUsuarioServicio {
     @Transactional
     public Usuario guardarCambiar(Usuario usuario) {
         return usuarioDao.save(usuario);
-    };
+    }
+
+    ;
 
     @Override
     @Transactional
     public void borrar(Usuario usuario) {
         usuarioDao.delete(usuario);
-    };
+    }
+
+    ;
 
     @Override
     @Transactional(readOnly = true)
     public Usuario buscarPorId(Long idUsuario) {
         return usuarioDao.findById(idUsuario).orElse(null);
     }
-
 
 }

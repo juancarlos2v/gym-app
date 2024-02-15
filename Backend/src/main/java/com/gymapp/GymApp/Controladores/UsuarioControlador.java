@@ -15,25 +15,29 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/usuario")
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UsuarioControlador {
 
-     @Autowired
+    @Autowired
     UsuarioServicio usuarioServicio;
 
     private static final Logger logger = LoggerFactory.getLogger(UsuarioControlador.class);
 
     @PostMapping("/registro")
-     public ResponseEntity<Object> registrar(@RequestParam String dni,@RequestParam String nombre,@RequestParam String apellido,@RequestParam String email,@RequestParam String password){
-        usuarioServicio.registrarUsuario(dni,nombre,apellido,email,password);
+    public ResponseEntity<Object> registrar(@RequestParam String dni, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password) {
+        usuarioServicio.registrarUsuario(dni, nombre, apellido, email, password);
         return new ResponseEntity<>(HttpStatus.CREATED);
-     }
+    }
 
     @PatchMapping("/baja")
-    public ResponseEntity<Object> baja(@RequestParam String dni){
+    public ResponseEntity<Object> baja(@RequestParam String dni) {
         usuarioServicio.bajaUsuario(dni);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+    // http://localhost:8080/api/usuarios
+    
     @GetMapping("/usuarios")
     public List<Usuario> obtenerListadoUsuarios() {
         var usuarios = usuarioServicio.listarUsuarios();
@@ -60,7 +64,7 @@ public class UsuarioControlador {
 
     @PutMapping("/usuarios/{id}")
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id,
-                                                     @RequestBody Usuario usuarioRecibido) {
+            @RequestBody Usuario usuarioRecibido) {
         Usuario usuario = usuarioServicio.buscarPorId(id);
         if (usuario == null) {
             throw new RecursoNoEncontradoExepcion("No se encontro el ID: " + id);
@@ -77,7 +81,7 @@ public class UsuarioControlador {
 
     @DeleteMapping("/usuarios/{id}")
     public ResponseEntity<Map<String, Boolean>>
-    eliminarUsuario(@PathVariable Long id) {
+            eliminarUsuario(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.buscarPorId(id);
         if (usuario == null) {
             throw new RecursoNoEncontradoExepcion("No se encontro el ID: " + id);
@@ -88,7 +92,5 @@ public class UsuarioControlador {
         respuesta.put("eliminado", Boolean.TRUE);
         return ResponseEntity.ok(respuesta);
     }
-
-
 
 }
