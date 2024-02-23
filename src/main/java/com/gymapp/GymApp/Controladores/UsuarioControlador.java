@@ -1,7 +1,9 @@
 package com.gymapp.GymApp.Controladores;
 
+import com.gymapp.GymApp.Entidades.Turno;
 import com.gymapp.GymApp.Entidades.Usuario;
 import com.gymapp.GymApp.Exepcion.RecursoNoEncontradoExepcion;
+import com.gymapp.GymApp.Servicios.TurnosServicio;
 import com.gymapp.GymApp.Servicios.UsuarioServicio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,20 +17,16 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@RequestMapping("/usuarios")
+@CrossOrigin(origins = "http://localhost:3000")    // http://localhost:8080/usuarios/...
 public class UsuarioControlador {
 
     @Autowired
     UsuarioServicio usuarioServicio;
 
+
     private static final Logger logger = LoggerFactory.getLogger(UsuarioControlador.class);
 
-    @PostMapping("/registro")
-    public ResponseEntity<Object> registrar(@RequestParam String dni, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password) {
-        usuarioServicio.registrarUsuario(dni, nombre, apellido, email, password);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
 
     @PatchMapping("/baja")
     public ResponseEntity<Object> baja(@RequestParam String dni) {
@@ -36,23 +34,21 @@ public class UsuarioControlador {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
-    // http://localhost:8080/api/usuarios
-    
-    @GetMapping("/usuarios")
+    @GetMapping("/")
     public List<Usuario> obtenerListadoUsuarios() {
         var usuarios = usuarioServicio.listarUsuarios();
         usuarios.forEach(empleado -> logger.info(empleado.toString()));
         return usuarios;
     }
 
-    @PostMapping("/usuarios")
+    @PostMapping("/")
     public Usuario agregarUsuario(@RequestBody Usuario usuario) {
         logger.info("Usuario a Agregar: " + usuario);
         return usuarioServicio.guardarCambiar(usuario);
     }
 //
 
-    @GetMapping("/usuarios/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.buscarPorId(id);
         if (usuario == null) {
@@ -62,7 +58,7 @@ public class UsuarioControlador {
     }
 //
 
-    @PutMapping("/usuarios/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id,
             @RequestBody Usuario usuarioRecibido) {
         Usuario usuario = usuarioServicio.buscarPorId(id);
@@ -79,7 +75,7 @@ public class UsuarioControlador {
     }
 //
 
-    @DeleteMapping("/usuarios/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Boolean>>
             eliminarUsuario(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.buscarPorId(id);
@@ -93,4 +89,7 @@ public class UsuarioControlador {
         return ResponseEntity.ok(respuesta);
     }
 
+
+
 }
+

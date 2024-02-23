@@ -26,7 +26,8 @@ public class Turno {
     private LocalDate fechaYhora;
     private int cupo;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "turno_id")
     private Usuario usuario;
 
 }
