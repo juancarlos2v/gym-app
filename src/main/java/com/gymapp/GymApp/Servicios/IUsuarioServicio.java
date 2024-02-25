@@ -5,18 +5,14 @@ import java.util.List;
 
 public interface IUsuarioServicio {
 
-    public List<Usuario> traerUsuarios();
+    List<Usuario> listarUsuarios();
 
-    public List<Usuario> listarUsuarios();
+    Usuario bajaUsuario(String dni);
 
-    public Usuario registrarUsuario(String dni, String nombre, String apellido, String email, String password);
+    Usuario guardarCambiar(Usuario usuario);
 
-    public Usuario bajaUsuario(String dni);
+    void borrar(Usuario usuario);
 
-    public Usuario guardarCambiar(Usuario usuario);
-
-    public void borrar(Usuario usuario);
-
-    public Usuario buscarPorId(Long id_usuario);
+     Usuario buscarPorId(Long id_usuario);
 
 }

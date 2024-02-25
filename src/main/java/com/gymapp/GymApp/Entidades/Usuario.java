@@ -3,6 +3,9 @@ package com.gymapp.GymApp.Entidades;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "Usuario")
 @Data
@@ -23,12 +26,18 @@ public class Usuario {
     private String apellido;
     private String email;
     private String password;
-    private boolean aptoFisico;
+    //private boolean aptoFisico;
     private boolean activo;
-    @OneToOne
-    private Turno turno;
+    //@OneToMany(mappedBy = "usuario",fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "usuario_clase",
+            joinColumns = @JoinColumn(name = "fk_usuario", nullable = false),
+            inverseJoinColumns = @JoinColumn(name="fk_clase", nullable = false)
+    )
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Clase> clases = new HashSet<>();
 
-    public Usuario(String dni, String nombre, String apellido, String email, String password, boolean activo) {
+    public Usuario(String dni, String nombre, String apellido, String email, String password, Boolean activo) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;

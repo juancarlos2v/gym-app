@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")    // http://localhost:8080/usuarios/...
 public class UsuarioControlador {
 
     @Autowired
@@ -24,19 +24,11 @@ public class UsuarioControlador {
 
     private static final Logger logger = LoggerFactory.getLogger(UsuarioControlador.class);
 
-    @PostMapping("/registro")
-    public ResponseEntity<Object> registrar(@RequestParam String dni, @RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password) {
-        usuarioServicio.registrarUsuario(dni, nombre, apellido, email, password);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-
     @PatchMapping("/baja")
     public ResponseEntity<Object> baja(@RequestParam String dni) {
         usuarioServicio.bajaUsuario(dni);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
-    // http://localhost:8080/api/usuarios
     
     @GetMapping("/usuarios")
     public List<Usuario> obtenerListadoUsuarios() {
@@ -45,14 +37,14 @@ public class UsuarioControlador {
         return usuarios;
     }
 
-    @PostMapping("/usuarios")
+    @PostMapping("/")
     public Usuario agregarUsuario(@RequestBody Usuario usuario) {
         logger.info("Usuario a Agregar: " + usuario);
         return usuarioServicio.guardarCambiar(usuario);
     }
 //
 
-    @GetMapping("/usuarios/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.buscarPorId(id);
         if (usuario == null) {
@@ -62,7 +54,7 @@ public class UsuarioControlador {
     }
 //
 
-    @PutMapping("/usuarios/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id,
             @RequestBody Usuario usuarioRecibido) {
         Usuario usuario = usuarioServicio.buscarPorId(id);
@@ -79,7 +71,7 @@ public class UsuarioControlador {
     }
 //
 
-    @DeleteMapping("/usuarios/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, Boolean>>
             eliminarUsuario(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.buscarPorId(id);
@@ -93,4 +85,7 @@ public class UsuarioControlador {
         return ResponseEntity.ok(respuesta);
     }
 
+
+
 }
+
