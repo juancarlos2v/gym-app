@@ -1,9 +1,7 @@
 package com.gymapp.GymApp.Controladores;
 
-import com.gymapp.GymApp.Entidades.Turno;
 import com.gymapp.GymApp.Entidades.Usuario;
 import com.gymapp.GymApp.Exepcion.RecursoNoEncontradoExepcion;
-import com.gymapp.GymApp.Servicios.TurnosServicio;
 import com.gymapp.GymApp.Servicios.UsuarioServicio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,16 +15,14 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000")    // http://localhost:8080/usuarios/...
 public class UsuarioControlador {
 
     @Autowired
     UsuarioServicio usuarioServicio;
 
-
     private static final Logger logger = LoggerFactory.getLogger(UsuarioControlador.class);
-
 
     @PatchMapping("/baja")
     public ResponseEntity<Object> baja(@RequestParam String dni) {
@@ -34,7 +30,7 @@ public class UsuarioControlador {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
-    @GetMapping("/")
+    @GetMapping("/usuarios")
     public List<Usuario> obtenerListadoUsuarios() {
         var usuarios = usuarioServicio.listarUsuarios();
         usuarios.forEach(empleado -> logger.info(empleado.toString()));

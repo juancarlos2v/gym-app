@@ -26,12 +26,18 @@ public class Usuario {
     private String apellido;
     private String email;
     private String password;
-    private boolean aptoFisico;
+    //private boolean aptoFisico;
     private boolean activo;
-    @OneToMany(mappedBy = "usuario",fetch = FetchType.EAGER)
-    private Set<Turno> turnos= new HashSet<>();
+    //@OneToMany(mappedBy = "usuario",fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "usuario_clase",
+            joinColumns = @JoinColumn(name = "fk_usuario", nullable = false),
+            inverseJoinColumns = @JoinColumn(name="fk_clase", nullable = false)
+    )
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<Clase> clases = new HashSet<>();
 
-    public Usuario(String dni, String nombre, String apellido, String email, String password, boolean activo) {
+    public Usuario(String dni, String nombre, String apellido, String email, String password, Boolean activo) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
