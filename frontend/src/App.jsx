@@ -1,7 +1,5 @@
 import './App.css'
 import {Routes, Route} from "react-router-dom"
-import Dashboard from './Component/Dashboard/Dashboard'
-import SideBar from './Component/SideBar/SideBar'
 import Users from './Component/Users/Users'
 import CreateUser from './Component/CreateUser/CreateUser'
 

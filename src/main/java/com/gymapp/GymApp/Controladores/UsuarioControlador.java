@@ -16,7 +16,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")    // http://localhost:8080/usuarios/...
 public class UsuarioControlador {
 
     @Autowired
@@ -30,7 +29,9 @@ public class UsuarioControlador {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
+
     @GetMapping("/usuarios")
+
     public List<Usuario> obtenerListadoUsuarios() {
         var usuarios = usuarioServicio.listarUsuarios();
         usuarios.forEach(empleado -> logger.info(empleado.toString()));

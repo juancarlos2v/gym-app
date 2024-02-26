@@ -30,7 +30,7 @@ public class Clase {
     private Integer precio;
     private Boolean activo;
     private int cupo;
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "clases")
     private Set<Usuario> usuarios = new HashSet<>();
 
 
