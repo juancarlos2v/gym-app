@@ -18,7 +18,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/usuarios")
-@CrossOrigin(origins = "http://localhost:3000")    // http://localhost:8080/usuarios/...
 public class UsuarioControlador {
 
     @Autowired
@@ -34,6 +33,7 @@ public class UsuarioControlador {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
+
     @GetMapping("/")
     public List<Usuario> obtenerListadoUsuarios() {
         var usuarios = usuarioServicio.listarUsuarios();
