@@ -16,7 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class UsuarioControlador {
 
     @Autowired
@@ -38,7 +38,8 @@ public class UsuarioControlador {
     
     // http://localhost:8080/api/usuarios
     
-    @GetMapping("/usuarios")
+//    @GetMapping("/api/admin/usuarios")  para admin
+    @GetMapping("/usuarios") //para usuarios (url simple)
     public List<Usuario> obtenerListadoUsuarios() {
         var usuarios = usuarioServicio.listarUsuarios();
         usuarios.forEach(empleado -> logger.info(empleado.toString()));
