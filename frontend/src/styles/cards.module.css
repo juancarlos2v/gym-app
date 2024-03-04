@@ -1,0 +1,36 @@
+.card {
+  width: 15rem;
+}
+.cardusers {
+  background-color: var(--yellow);
+  color: var(--white);
+  padding: 1rem;
+  padding-bottom: 0;
+}
+.cardusersdark {
+  background-color: var(--yellow-dark);
+  color: var(--white);
+  padding: 0.5rem;
+}
+.cardclases {
+  background-color: var(--orange);
+  color: var(--white);
+  padding: 1rem;
+  padding-bottom: 0;
+}
+
+.cardclasesdark {
+  background-color: var(--orange-dark);
+}
+
+.cardbalance {
+  background-color: var(--green);
+  color: var(--white);
+  padding: 1rem;
+  padding-bottom: 0;
+}
+.cardbalancedark {
+  background-color: var(--green-dark);
+  color: var(--white);
+  padding: 0.5rem;
+}

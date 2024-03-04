@@ -1,0 +1,27 @@
+.titlesearch {
+  border-top: solid var(--grey-1) 0.1rem;
+  margin-top: 3rem;
+  padding-top: 2rem;
+}
+
+.table {
+  width: 100%;
+}
+
+thead {
+  color: var(--white);
+  background-color: var(--grey-1);
+}
+
+td,
+th {
+  padding: 0.5rem;
+}
+.buttons > button {
+  padding: 0.1rem !important;
+  border-radius: 15px;
+  width: 7rem !important;
+}
+.buttons > input {
+  border-bottom: solid 0.1rem var(--grey-1);
+}
