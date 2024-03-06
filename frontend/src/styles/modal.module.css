@@ -1,0 +1,44 @@
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal {
+  background-color: var(--black-2);
+  color: var(--white);
+  width: 30rem;
+  height: auto;
+  padding: 2rem;
+  border-radius: 45px;
+}
+
+input {
+  background-color: var(--white) !important;
+  border-radius: 30px;
+  padding-left: 0.5rem !important;
+  height: 2rem;
+}
+label {
+  margin-top: 0.7rem;
+}
+.button > button {
+  margin-top: 3rem;
+  border: none;
+  width: 7rem;
+  padding: 0.5rem;
+  border-radius: 30px;
+}
+
+.btnRegister {
+  background-color: var(--yellow);
+  color: var(--black-2);
+}
+
+.btnBack {
+  border: solid var(--white) 0.1rem !important;
+}

@@ -3,6 +3,11 @@
   margin-top: 3rem;
   padding-top: 2rem;
 }
+.btnFinder {
+  width: 1rem !important;
+  border: none !important;
+  padding: 0 !important;
+}
 
 .table {
   width: 100%;
@@ -12,7 +17,9 @@ thead {
   color: var(--white);
   background-color: var(--grey-1);
 }
-
+tbody > tr:hover {
+  background-color: var(--grey-3);
+}
 td,
 th {
   padding: 0.5rem;
@@ -24,4 +31,18 @@ th {
 }
 .buttons > input {
   border-bottom: solid 0.1rem var(--grey-1);
+}
+
+td > button {
+  padding: 0 !important;
+  border: none;
+  margin-left: 0.8rem;
+  background-color: transparent;
+}
+td > button:hover svg {
+  stroke: red !important;
+}
+
+.buttons > input {
+  border-radius: 0%;
 }
