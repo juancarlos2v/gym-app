@@ -1,8 +1,7 @@
 package com.gymapp.GymApp.Security.Auth;
 
 import com.gymapp.GymApp.Security.Jwt.JwtService;
-import com.gymapp.GymApp.Security.User.Role;
-import com.gymapp.GymApp.Security.User.User;
+import com.gymapp.GymApp.Security.User.Admin;
 import com.gymapp.GymApp.Security.User.UserRepository;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,19 +32,20 @@ public class AuthService {
     }
 
     public AuthResponse register(RegisterRequest request) {
-        User user = User.builder()
+        Admin admin = Admin.builder()
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .firstname(request.getFirstname())
                 .lastname(request.lastname)
                 .country(request.getCountry())
-                .role(request.getUsername().equals("admin") ? Role.ADMIN : Role.USER)
+                .role("ADMIN")
+//                .role(request.getUsername().equals("admin") ? Role.ADMIN : Role.USER)
                 .build();
 
-        userRepository.save(user);
+        userRepository.save(admin);
 
         return AuthResponse.builder()
-                .token(jwtService.getToken(user))
+                .token(jwtService.getToken(admin))
                 .build();
 
     }

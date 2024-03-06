@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,9 +22,20 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
-
-//    @PostMapping(value = "register")
-//    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
-//        return ResponseEntity.ok(authService.register(request));
-//    }
+    
+    //http://localhost:8080/auth/register
+    
+    @PostMapping(value = "register")
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
+        return ResponseEntity.ok(authService.register(request));
+    }
+    
+    //http://localhost:8080/auth/A1
+    @GetMapping(value = "A1")
+    public String mensaje(){
+        return "Hola, este url es publico";
+    }
+    
+    //http://localhost:8080/swagger-ui/index.html
+    
 }

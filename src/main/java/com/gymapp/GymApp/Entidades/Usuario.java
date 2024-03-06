@@ -25,7 +25,7 @@ public class Usuario {
     private String nombre;
     private String apellido;
     private String email;
-    private String password;
+//    private String password;
     //private boolean aptoFisico;
     private boolean activo;
     //@OneToMany(mappedBy = "usuario",fetch = FetchType.EAGER)
@@ -42,7 +42,7 @@ public class Usuario {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
-        this.password = password;
+//        this.password = password;
         this.activo = activo;
 
     }

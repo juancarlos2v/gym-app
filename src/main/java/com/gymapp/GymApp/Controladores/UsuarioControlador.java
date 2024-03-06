@@ -17,35 +17,36 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class UsuarioControlador {
+    
 
     @Autowired
     UsuarioServicio usuarioServicio;
 
     private static final Logger logger = LoggerFactory.getLogger(UsuarioControlador.class);
 
-    @PatchMapping("/baja")
-    public ResponseEntity<Object> baja(@RequestParam String dni) {
-        usuarioServicio.bajaUsuario(dni);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+//    @PatchMapping("/usuarios/baja")
+//    public ResponseEntity<Object> baja(@RequestParam String dni) {
+//        usuarioServicio.bajaUsuario(dni);
+//        return new ResponseEntity<>(HttpStatus.OK);
+//    }
     
-
-    @GetMapping("/usuarios")
-
+    @GetMapping(value = "usuarios")
     public List<Usuario> obtenerListadoUsuarios() {
         var usuarios = usuarioServicio.listarUsuarios();
         usuarios.forEach(empleado -> logger.info(empleado.toString()));
         return usuarios;
     }
 
-    @PostMapping("/")
+    //http://localhost:8080/api/usuarios
+    
+    @PostMapping(value = "/usuarios/agregar")
     public Usuario agregarUsuario(@RequestBody Usuario usuario) {
         logger.info("Usuario a Agregar: " + usuario);
         return usuarioServicio.guardarCambiar(usuario);
     }
 //
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/usuarios/{id}")
     public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.buscarPorId(id);
         if (usuario == null) {
@@ -55,7 +56,7 @@ public class UsuarioControlador {
     }
 //
 
-    @PutMapping("/{id}")
+    @PutMapping(value = "/usuarios/{id}")
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id,
             @RequestBody Usuario usuarioRecibido) {
         Usuario usuario = usuarioServicio.buscarPorId(id);
@@ -66,13 +67,14 @@ public class UsuarioControlador {
         usuario.setNombre(usuarioRecibido.getNombre());
         usuario.setApellido(usuarioRecibido.getApellido());
         usuario.setEmail(usuarioRecibido.getEmail());
-        usuario.setPassword(usuarioRecibido.getPassword());
+        usuario.setActivo(usuarioRecibido.isActivo());
+//        usuario.setPassword(usuarioRecibido.getPassword());
         usuarioServicio.guardarCambiar(usuario);
         return ResponseEntity.ok(usuario);
     }
 //
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/usuarios/{id}")
     public ResponseEntity<Map<String, Boolean>>
             eliminarUsuario(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.buscarPorId(id);
@@ -86,7 +88,4 @@ public class UsuarioControlador {
         return ResponseEntity.ok(respuesta);
     }
 
-
-
 }
-
