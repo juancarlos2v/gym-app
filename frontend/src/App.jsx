@@ -1,9 +1,9 @@
 import './App.css'
-import {Routes, Route} from "react-router-dom"
-import Dashboard from './Component/Dashboard/Dashboard'
-import SideBar from './Component/SideBar/SideBar'
-import Users from './Component/Users/Users'
-import CreateUser from './Component/CreateUser/CreateUser'
+import { Routes, Route } from "react-router-dom"
+import Index from '@pages/Index'
+import Dashboard from '@pages/Dashboard'
+import "@styles/normalize.css"
+import "@styles/global.css"
 
 
 function App() {
@@ -11,11 +11,10 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path='/' element={<CreateUser/>}/>
-        <Route exact path='/users' element= {<Users/>}/>
+        <Route exact path='/' element={<Index />} />
+        <Route exact path='/dashboard' element={<Dashboard />} />
       </Routes>
     </>
-      //  <Route exact path="/sideBar" element={<SideBar/>}/>
   )
 }
 

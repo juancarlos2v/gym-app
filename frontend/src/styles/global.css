@@ -1,0 +1,37 @@
+:root {
+  --black: #000000;
+  --black-2: #303030;
+  --yellow: #ffca41;
+  --yellow-dark: #be7d48;
+  --grey-1: #6a6a6a;
+  --grey-2: #bebebe;
+  --white: #ffffff;
+  --green: #72b653;
+  --green-dark: #4b6742;
+  --orange: #e5843e;
+  --orange-dark: #724233;
+}
+p {
+  margin: 0 !important;
+}
+h1,
+h2,
+h3,
+p {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+input {
+  /* Eliminar el borde predeterminado */
+  border: none;
+  /* Eliminar el fondo predeterminado */
+  background-color: transparent;
+  /* Eliminar el margen predeterminado */
+  margin: 0;
+  /* Eliminar el relleno predeterminado */
+  padding: 0;
+  /* Otros estilos personalizados según sea necesario */
+  outline: none;
+}
