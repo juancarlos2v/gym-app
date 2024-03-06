@@ -1,6 +1,7 @@
 import styles from "@styles/list.module.css"
 import axios from 'axios';
 import { useState, useEffect } from "react";
+import { useListContext } from "../../Context/ListContext";
 const usuariosOffline = [
     {
         "dni": "12345678",
@@ -69,8 +70,10 @@ const usuariosOffline = [
 const baseURL = "http://localhost:8080";
 
 const List = () => {
-
+    const { list } = useListContext()
     const [usuarios, setUsuarios] = useState([]);
+    const [clases, setClases] = useState([]);
+
 
     useEffect(() => {
         axios.get(`${baseURL}/api/usuarios`).then((response) => {
@@ -79,6 +82,15 @@ const List = () => {
         }).catch(error => {
             console.log(error)
             setUsuarios(usuariosOffline)
+        });
+    }, []);
+    useEffect(() => {
+        axios.get(`${baseURL}/api/clases`).then((response) => {
+            setClases(response.data);
+            console.log(response.data)
+        }).catch(error => {
+            console.log(error)
+            setClases(usuariosOffline)
         });
     }, []);
 
@@ -93,7 +105,7 @@ const List = () => {
                         <button>Registrar</button>
                     </div>
                 </div>
-                <div className="pt-5">
+                {list == "M" && <div className="pt-5">
                     <table className={`${styles.table}`}>
                         <thead>
                             <tr>
@@ -124,8 +136,43 @@ const List = () => {
 
 
                     </table>
-                </div>
+                </div>}
+                {list == "C" && <div className="pt-5">
+                    <table className={`${styles.table}`}>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Entrenador</th>
+                                <th>Horario</th>
+                                <th>Turno</th>
+                                <th>precio</th>
+                                <th>activo</th>
+                                <th>cupo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {clases.map((clases, index) => {
+                                return (
+                                    <tr key={index} className='flex justify-around mt-10 bg-red-400 rounded-md py-4 items-center'>
+                                        <td>{clases.id}</td>
+                                        <td>{clases.nombre}</td>
+                                        <td>{clases.entrenador}</td>
+                                        <td>{clases.fechaYhora}</td>
+                                        <td>{clases.turno}</td>
+                                        <td>{clases.precio}</td>
+                                        <td>{clases.activo ? "Si" : "No"}</td>
+                                        <td>{clases.cupo}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+
+
+                    </table>
+                </div>}
             </div>
+
         </>
     )
 }

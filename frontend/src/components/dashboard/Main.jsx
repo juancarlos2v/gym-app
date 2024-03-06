@@ -1,9 +1,20 @@
 import logo from "/logo.png"
 import style from "@styles/dashboardmain.module.css"
 import { useState, useEffect } from "react";
+import { useListContext } from "../../Context/ListContext";
 
 const Main = () => {
     const [time, setTime] = useState(new Date());
+    const { setList } = useListContext();
+
+
+    const showMembers = () => {
+        setList('M');
+    };
+
+    const showClass = () => {
+        setList('C');
+    };
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -33,7 +44,7 @@ const Main = () => {
             </div>
             <div >
                 <div className="d-flex flex-column justify-content-end">
-                    <button className={`${style.buttons}`} >
+                    <button onClick={showMembers} className={`${style.buttons}`} >
                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-military-award" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '15px' }}>
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M12 13m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
@@ -41,12 +52,12 @@ const Main = () => {
                             <path d="M15.5 10.5l1 -2.5h5.5l-2.48 5.788a2 2 0 0 1 -1.84 1.212h-2.18" />
                         </svg>
                         Miembros
-                    </button>
+                    </button >
                 </div>
 
 
                 <div className={`${style.border} d-flex flex-column justify-content-end `}>
-                    <button className={`${style.buttons}`}>
+                    <button onClick={showClass} className={`${style.buttons}`}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-check" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '15px' }}>
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
