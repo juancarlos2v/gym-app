@@ -3,104 +3,136 @@ import axios from 'axios';
 import { useState, useEffect } from "react";
 import { useListContext } from "../../Context/ListContext";
 import MemberModal from "../NewMemberModal";
+import InfoMember from "../InfoMember";
+
 const usuariosOffline = [
     {
-        id: "default",
+        id: "54839",
         nombre: "Carlos",
         apellido: "Gómez",
         dni: "12345678",
-        nacimiento: "default",
+        fechaDeNacimiento: "default",
         email: "gomez@gmail.com",
         direccion: "default",
-        telefono: "default",
-        telefonoE: "default",
+        telefono: 3489842,
+        telefonoAxiliar: "default",
         membresia: "default",
-        expiracion: "default"
+        activo: true,
+        fechaDeVencimiento: "default",
+        aptoFisico: true
 
     },
     {
-        id: "default",
+        id: "5423839",
         dni: "7574845",
         nombre: "Ana",
         apellido: "Rodríguez",
         email: "rodriguez@gmail.com",
         direccion: "default",
-        telefono: "default",
-        telefonoE: "default",
+        telefono: 367675675,
+        telefonoAxiliar: 367675675,
         membresia: "default",
-        expiracion: "default"
+        expiracion: "default",
+        activo: true,
+        fechaDeVencimiento: "default",
+        fechaDeNacimiento: "default",
+        aptoFisico: true
     },
     {
-        id: "default",
+        id: "54839",
         dni: "90378345",
         nombre: "Aylen",
         apellido: "Jonta",
         email: "lopez@gmail.com",
         direccion: "default",
-        telefono: "default",
-        telefonoE: "default",
+        telefono: 453453,
+        telefonoAxiliar: 767567657,
         membresia: "default",
-        expiracion: "default"
+        expiracion: "default",
+        activo: true,
+        fechaDeVencimiento: "default",
+        fechaDeNacimiento: "default",
+        aptoFisico: true
     },
     {
-        id: "default",
+        id: "34232",
         dni: "34567890",
         nombre: "Laura",
         apellido: "Fernández",
         email: "fer@gmail.com",
         direccion: "default",
-        telefono: "default",
-        telefonoE: "default",
+        telefono: 53453453453,
+        telefonoAxiliar: 75656756,
         membresia: "default",
-        expiracion: "default"
+        expiracion: "default",
+        activo: true,
+        fechaDeVencimiento: "default",
+        fechaDeNacimiento: "default",
+        aptoFisico: true
     },
     {
-        id: "default",
+        id: "83329",
         dni: "23456789",
         nombre: "Pablo",
         apellido: "Suarez",
         email: "martinez@gmail.com",
         direccion: "default",
-        telefono: "default",
-        telefonoE: "default",
+        telefono: 5345344543,
+        telefonoAxiliar: 75675675,
         membresia: "default",
-        expiracion: "default"
+        expiracion: "default",
+        activo: true,
+        fechaDeVencimiento: "default",
+        fechaDeNacimiento: "default",
+        aptoFisico: true
     },
     {
-        id: "default",
+        id: "23456",
         dni: "90378345",
         nombre: "Miguel",
         apellido: "López",
         email: "lopez@gmail.com",
         direccion: "default",
-        telefono: "default",
-        telefonoE: "default",
+        telefono: 234435,
+        telefonoAxiliar: 75676534,
         membresia: "default",
-        expiracion: "default"
+        expiracion: "default",
+        activo: true,
+        fechaDeVencimiento: "default",
+        fechaDeNacimiento: "default",
+        aptoFisico: true
     },
     {
-        id: "default",
+        id: "65464",
         dni: "34567890",
         nombre: "Gabriel",
         apellido: "Ruiz",
         email: "fer@gmail.com",
         direccion: "default",
-        telefono: "default",
-        telefonoE: "default",
+        telefono: 5345355,
+        telefonoAxiliar: 456464,
         membresia: "default",
-        expiracion: "default"
+        expiracion: "default",
+        activo: true,
+        fechaDeVencimiento: "default",
+        fechaDeNacimiento: "default",
+        aptoFisico: true
     },
     {
-        id: "default",
+        id: "56464",
         dni: "23456789",
         nombre: "Alejandro",
         apellido: "Martínez",
         email: "martinez@gmail.com",
         direccion: "default",
-        telefono: "default",
-        telefonoE: "default",
+        telefono: 53453,
+        telefonoAxiliar: 64564546,
         membresia: "default",
-        expiracion: "default"
+        expiracion: "default",
+        activo: true,
+        fechaDeVencimiento: "default",
+        fechaDeNacimiento: "default",
+        aptoFisico: true
     }
 ]
 
@@ -154,8 +186,7 @@ const List = () => {
     const [dni, setDni] = useState('');
     const [className, setClassName] = useState('');
     const [modalU, setModalU] = useState(false);
-    //const [modalMode, setModalMode] = useState("");
-
+    const [modalInfo, setModalInfo] = useState(false);
 
     useEffect(() => {
         axios.get(`${baseURL}/api/usuarios`).then((response) => {
@@ -204,16 +235,16 @@ const List = () => {
             });
     }
 
-    // const registerMember = () => {
-    //     setModalU(true);
-    //     setModalMode("new")
-    // }
-
     const modalMemberActive = (user) => {
         setUserUpdate(user);
-        // setModalMode(mode);
         setModalU(true);
         console.log(user);
+
+    }
+
+    const modalInfoActive = (user) => {
+        setUserUpdate(user);
+        setModalInfo(true);
 
     }
 
@@ -274,9 +305,10 @@ const List = () => {
                                                     <td>{user.nombre}</td>
                                                     <td>{user.apellido}</td>
                                                     <td>{user.email}</td>
-                                                    <td>{user.inscripcion ? "Si" : "No"}</td>
+                                                    <td>{user.activo ? "Si" : "No"}</td>
                                                     <td className="d-flex justify-content-center">
-                                                        <button>
+                                                        <button
+                                                            onClick={() => modalInfoActive(user)}>
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-info-circle" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                                 <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
@@ -284,7 +316,8 @@ const List = () => {
                                                                 <path d="M11 12h1v4h1" />
                                                             </svg>
                                                         </button>
-                                                        <button onClick={() => modalMemberActive(user)}>
+                                                        <button
+                                                            onClick={() => modalMemberActive(user)}>
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-edit" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                                 <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
@@ -308,16 +341,24 @@ const List = () => {
                                             <td>{users.nombre}</td>
                                             <td>{users.apellido}</td>
                                             <td>{users.email}</td>
-                                            <td>{users.inscripcion ? "Si" : "No"}</td>
+                                            <td>{users.activo ? "Si" : "No"}</td>
                                             <td>
-                                                <button>+ info</button>
-                                                <button>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-edit" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                <button onClick={() => modalInfoActive(users)}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-info-circle" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                                                        <path d="M12 9h.01" />
+                                                        <path d="M11 12h1v4h1" />
+                                                    </svg>
+                                                </button>
+                                                <button onClick={() => modalMemberActive(users)}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-edit" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                         <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
                                                         <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
                                                         <path d="M16 5l3 3" />
-                                                    </svg></button>
+                                                    </svg>
+                                                </button>
                                                 <button >Eliminar</button>
                                             </td>
                                         </tr>
@@ -348,7 +389,7 @@ const List = () => {
                                         <td>{c.fechaYhora}</td>
                                         <td>{c.turno}</td>
                                         <td>{`$${c.precio}`} </td>
-                                        <td>{c.activo ? "Si" : "No"}</td>
+                                        <td>{c.activo ? "Sí" : "No"}</td>
                                         <td>{c.cupo}</td>
 
                                     </tr>
@@ -361,7 +402,7 @@ const List = () => {
                 </div>}
             </div>
 
-            {
+            <div> {
                 modalU ?
                     <MemberModal
                         onClose={setModalU.bind(null, false)}
@@ -371,6 +412,17 @@ const List = () => {
                     /> :
                     null
             }
+            </div>
+            <div>
+                {
+                    modalInfo ?
+                        <InfoMember
+                            onClose={setModalInfo.bind(null, false)}
+                            selected={userUpdate}
+                        /> :
+                        null
+                }
+            </div>
 
 
 

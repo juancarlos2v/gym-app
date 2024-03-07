@@ -12,14 +12,15 @@ const MemberModal = ({ onClose, selected }) => {
                 name: selected.nombre,
                 lastName: selected.apellido,
                 dni: selected.dni,
-                birthday: selected.nacimiento,
+                birthday: selected.fechaDeNacimiento,
                 email: selected.email,
                 address: selected.direccion,
                 phone: selected.telefono,
-                phoneE: selected.telefonoE,
-                //apto: '',
+                phoneE: selected.telefonoAxiliar,
+                apto: selected.aptoFisico,
                 membershipType: selected.membresia,
-                membershipExpiration: selected.expiracion,
+                membershipExpiration: selected.fechaDeVencimiento,
+                activo: selected.activo
             });
         } else {
             setNewUser({
@@ -31,9 +32,10 @@ const MemberModal = ({ onClose, selected }) => {
                 address: '',
                 phone: '',
                 phoneE: '',
-                //apto: '',
+                apto: '',
                 membershipType: '',
                 membershipExpiration: '',
+                activo: ''
             });
         }
     }, [selected])
@@ -42,13 +44,15 @@ const MemberModal = ({ onClose, selected }) => {
         { id: 'name', name: 'name', label: 'Nombre' },
         { id: 'lastName', name: 'lastName', label: 'Apellido' },
         { id: 'email', name: 'email', label: 'E-mail' },
-        { id: 'address', name: 'address', label: 'Direccion' },
         { id: 'dni', name: 'dni', label: 'Documento de Identidad', type: 'number' },
         { id: 'birthday', name: 'birthday', label: 'Fecha de Nacimiento' },
         { id: 'phone', name: 'phone', label: 'Telefono', type: 'number' },
         { id: 'phoneE', name: 'phoneE', label: 'Telefono de Emergencia', type: 'number' },
         { id: 'membershipType', name: 'membershipType', label: 'Membresia' },
-        { id: 'membershipExpiration', name: 'membershipExpiration', label: 'membershipExpiration', type: 'date' },
+        { id: 'membershipExpiration', name: 'membershipExpiration', label: 'Vencimiento', },
+        { id: 'address', name: 'address', label: 'Direccion' },
+        { id: 'apto', name: 'apto', label: 'Apto' },
+        { id: 'activo', name: 'activo', label: 'Estado' },
 
     ];
 
@@ -91,7 +95,7 @@ const MemberModal = ({ onClose, selected }) => {
             address: '',
             phone: '',
             phoneE: '',
-            //apto: '',
+            apto: '',
             membershipType: '',
             membershipExpiration: '',
         });
@@ -101,10 +105,10 @@ const MemberModal = ({ onClose, selected }) => {
     return (
         <div className={styles.overlay}>
             <div className={styles.modal}>
-                <h2>Nuevo miembro</h2>
+                <h2> {Object.keys(selected).length !== 0 ? <span className='d-flex justify-content-between'>Miembro <span> #{newUser.id}</span> </span> : <span>Nuevo miembro</span>} </h2>
                 <form onSubmit={handleSubmit} className="d-flex flex-column">
-                    <div>
-                        {inputs.slice(0, 3).map(input => (
+                    <div className='d-flex flex-row justify-content-between'>
+                        {inputs.slice(0, 2).map(input => (
                             <div key={input.id} className='d-flex flex-column' >
                                 <label htmlFor={input.id}>{input.label}</label>
                                 <input
@@ -119,7 +123,7 @@ const MemberModal = ({ onClose, selected }) => {
                         ))}
                     </div>
                     <div className='d-flex flex-row justify-content-between'>
-                        {inputs.slice(4, 6).map(input => (
+                        {inputs.slice(2, 4).map(input => (
                             <div key={input.id}  >
                                 <div className='d-flex flex-column'>
                                     <label htmlFor={input.id}>{input.label}</label>
@@ -136,7 +140,7 @@ const MemberModal = ({ onClose, selected }) => {
                         ))}
                     </div>
                     <div className='d-flex flex-row justify-content-between'>
-                        {inputs.slice(6, 8).map(input => (
+                        {inputs.slice(5, 7).map(input => (
                             <div key={input.id}  >
                                 <div className='d-flex flex-column'>
                                     <label htmlFor={input.id}>{input.label}</label>
@@ -153,7 +157,7 @@ const MemberModal = ({ onClose, selected }) => {
                         ))}
                     </div>
                     <div className='d-flex flex-row justify-content-between' >
-                        {inputs.slice(8, 10).map(input => (
+                        {inputs.slice(7, 9).map(input => (
                             <div key={input.id}  >
                                 <div className='d-flex flex-column'>
                                     <label htmlFor={input.id}>{input.label}</label>
@@ -164,6 +168,25 @@ const MemberModal = ({ onClose, selected }) => {
                                         value={newUser[input.name]}
                                         onChange={handleChange}
                                     />
+                                </div>
+                            </div>
+
+                        ))}
+                    </div>
+                    <div className='d-flex flex-row justify-content-between' >
+                        {inputs.slice(9, 12).map((input, index) => (
+                            <div key={input.id} style={{ width: index === 0 ? '70%' : '15%' }} >
+                                <div className='d-flex flex-column'>
+                                    <label htmlFor={input.id}>{input.label}</label>
+                                    {
+                                        <input
+                                            type={input.type || 'text'}
+                                            id={input.id}
+                                            name={input.name}
+                                            value={newUser[input.name]}
+                                            onChange={handleChange}
+                                        />
+                                    }
                                 </div>
                             </div>
 
@@ -183,7 +206,6 @@ const MemberModal = ({ onClose, selected }) => {
 
 MemberModal.propTypes = {
     onClose: PropTypes.func.isRequired,
-    mode: PropTypes.func.isRequired,
     selected: PropTypes.func.isRequired
 };
 
