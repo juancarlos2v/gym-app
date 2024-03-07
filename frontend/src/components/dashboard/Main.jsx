@@ -38,7 +38,7 @@ const Main = () => {
     return (
 
         <div className={`${style.main}  d-flex flex-column justify-content-between`}>
-            <div className={`${style.background}  mb-4 d-flex flex-column justify-content-center align-items-center`} >
+            <div className={`${style.background}  mt-5 d-flex flex-column justify-content-center align-items-center`} >
                 <img src={logo} alt="gymove" />
                 <p className={style.title}>GYMOVE</p>
             </div>

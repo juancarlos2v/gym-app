@@ -48,7 +48,7 @@ const Index = () => {
                 </div>
             </div>
             <div className={`${styles.background} col-8`}>
-                <p>hoasd</p>
+
             </div>
 
         </div>
