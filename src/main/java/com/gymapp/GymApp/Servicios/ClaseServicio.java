@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClaseServicio implements IClaseServicio {
@@ -78,4 +79,10 @@ public class ClaseServicio implements IClaseServicio {
     public void guardarClase(Clase clase) {
         claseDao.save(clase);
     }
+
+    @Override
+    public Optional<Clase> buscarPorEntrenador(String entrenador) {
+        return claseDao.findByEntrenador(entrenador);
+    }
+    
 }

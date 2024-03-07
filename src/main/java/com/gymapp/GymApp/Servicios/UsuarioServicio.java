@@ -5,8 +5,11 @@ import org.springframework.stereotype.Service;
 import com.gymapp.GymApp.Dao.UsuarioDao;
 import com.gymapp.GymApp.Entidades.Usuario;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UsuarioServicio implements IUsuarioServicio {
@@ -14,13 +17,13 @@ public class UsuarioServicio implements IUsuarioServicio {
     @Autowired
     private UsuarioDao usuarioDao;
 
-    @Override
-    public Usuario bajaUsuario(String dni) {
-        Usuario usuario = usuarioDao.findByDni(dni);
-        usuario.setActivo(false);
-        usuarioDao.save(usuario);
-        return usuario;
-    }
+//    @Override
+//    public Usuario bajaUsuario(String dni) {
+//        Usuario usuario = usuarioDao.findByDni(dni);
+//        usuario.setActivo(false);
+//        usuarioDao.save(usuario);
+//        return usuario;
+//    }
 
     @Override
     @Transactional(readOnly = true)
@@ -49,5 +52,18 @@ public class UsuarioServicio implements IUsuarioServicio {
     public Usuario buscarPorId(Long idUsuario) {
         return usuarioDao.findById(idUsuario).orElse(null);
     }
-
+    
+    @Override
+    @Transactional(readOnly = true)
+     public Optional<Usuario> buscarPorDni(String dni) {
+        return usuarioDao.findByDni(dni);
+    }
+     
+     @Override
+     @Transactional(readOnly = true)
+    public Page<Usuario> listarUsuariosPaginados(Pageable pageable) {
+        return usuarioDao.findAll(pageable);
+    }
+     
+     
 }

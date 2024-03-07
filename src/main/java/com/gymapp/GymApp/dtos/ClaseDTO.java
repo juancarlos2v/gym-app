@@ -3,13 +3,13 @@ package com.gymapp.GymApp.dtos;
 import com.gymapp.GymApp.Entidades.Clase;
 import com.gymapp.GymApp.Entidades.Turno;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ClaseDTO {
-    private String id;
+    private Long id;
     private String nombre;
     private String entrenador;
-    private LocalDate fechaYhora;
+    private LocalDateTime fechaYhora;
     private Turno turno;
     private Integer precio;
     private Boolean activo;
@@ -29,11 +29,11 @@ public class ClaseDTO {
         this.cupo = clase.getCupo();
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,11 +53,11 @@ public class ClaseDTO {
         this.entrenador = entrenador;
     }
 
-    public LocalDate getFechaYhora() {
+    public LocalDateTime getFechaYhora() {
         return fechaYhora;
     }
 
-    public void setFechaYhora(LocalDate fechaYhora) {
+    public void setFechaYhora(LocalDateTime fechaYhora) {
         this.fechaYhora = fechaYhora;
     }
 

@@ -2,10 +2,10 @@ package com.gymapp.GymApp.Entidades;
 
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,12 +20,11 @@ import java.util.Set;
 public class Clase {
 
     @Id
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nombre;
     private String entrenador;
-    private LocalDate fechaYhora;
+    private LocalDateTime  fechaYhora;
     private Turno turno;
     private Integer precio;
     private Boolean activo;
