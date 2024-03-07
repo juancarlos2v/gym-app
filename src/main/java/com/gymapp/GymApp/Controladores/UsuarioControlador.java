@@ -6,18 +6,20 @@ import com.gymapp.GymApp.Servicios.UsuarioServicio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/api")
 public class UsuarioControlador {
-    
 
     @Autowired
     UsuarioServicio usuarioServicio;
@@ -29,7 +31,6 @@ public class UsuarioControlador {
 //        usuarioServicio.bajaUsuario(dni);
 //        return new ResponseEntity<>(HttpStatus.OK);
 //    }
-    
     @GetMapping(value = "usuarios")
     public List<Usuario> obtenerListadoUsuarios() {
         var usuarios = usuarioServicio.listarUsuarios();
@@ -37,7 +38,7 @@ public class UsuarioControlador {
         return usuarios;
     }
 
-    //http://localhost:8080/api/usuarios
+    //http://localhost:8080/api/usuarios/agregar
     
     @PostMapping(value = "/usuarios/agregar")
     public Usuario agregarUsuario(@RequestBody Usuario usuario) {
@@ -54,9 +55,19 @@ public class UsuarioControlador {
         }
         return ResponseEntity.ok(usuario);
     }
-//
 
-    @PutMapping(value = "/usuarios/{id}")
+    @GetMapping(value = "/usuarios/porDni/{dni}")
+    public ResponseEntity<Usuario> obtenerUsuarioPorDni(@PathVariable String dni) {
+        Optional<Usuario> optionalUsuario = usuarioServicio.buscarPorDni(dni);
+        if (optionalUsuario.isPresent()) {
+            return ResponseEntity.ok(optionalUsuario.get());
+        } else {
+            throw new RecursoNoEncontradoExepcion("No se encontro el ID: " + dni);
+        }
+    }
+
+//
+    @PutMapping(value = "/usuarios/modificar/{id}")
     public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id,
             @RequestBody Usuario usuarioRecibido) {
         Usuario usuario = usuarioServicio.buscarPorId(id);
@@ -67,14 +78,19 @@ public class UsuarioControlador {
         usuario.setNombre(usuarioRecibido.getNombre());
         usuario.setApellido(usuarioRecibido.getApellido());
         usuario.setEmail(usuarioRecibido.getEmail());
+        usuario.setTelefono(usuarioRecibido.getTelefono());
+        usuario.setTelefonoAuxiliar(usuarioRecibido.getTelefonoAuxiliar());
+        usuario.setFechaDeNacimiento(usuarioRecibido.getFechaDeNacimiento());
+        usuario.setFechaVencimiento(usuarioRecibido.getFechaVencimiento());
+        usuario.setTipoMembresia(usuarioRecibido.getTipoMembresia());
+        usuario.setAptoFisico(usuarioRecibido.isAptoFisico());
         usuario.setActivo(usuarioRecibido.isActivo());
-//        usuario.setPassword(usuarioRecibido.getPassword());
         usuarioServicio.guardarCambiar(usuario);
         return ResponseEntity.ok(usuario);
     }
 //
 
-    @DeleteMapping(value = "/usuarios/{id}")
+    @DeleteMapping(value = "/usuarios/eliminar/{id}")
     public ResponseEntity<Map<String, Boolean>>
             eliminarUsuario(@PathVariable Long id) {
         Usuario usuario = usuarioServicio.buscarPorId(id);
@@ -86,6 +102,17 @@ public class UsuarioControlador {
         Map<String, Boolean> respuesta = new HashMap<>();
         respuesta.put("eliminado", Boolean.TRUE);
         return ResponseEntity.ok(respuesta);
+    }
+
+    @GetMapping(value = "/usuarios/paginados")
+    public ResponseEntity<Page<Usuario>> obtenerListadoUsuarios(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Usuario> usuariosPage = usuarioServicio.listarUsuariosPaginados(pageable);
+        usuariosPage.forEach(usuario -> logger.info(usuario.toString()));
+        return ResponseEntity.ok(usuariosPage);
     }
 
 }
