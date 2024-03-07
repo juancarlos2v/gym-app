@@ -5,6 +5,8 @@ import com.gymapp.GymApp.Entidades.Clase;
 
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IClaseServicio {
 
@@ -17,5 +19,6 @@ public interface IClaseServicio {
     void borrarClase(Long id);
     void guardarClase(Clase clase);
     Optional<Clase> buscarPorEntrenador(String entrenador);
+    Page<Clase> listarClasePaginados(Pageable pageable);
 
 }

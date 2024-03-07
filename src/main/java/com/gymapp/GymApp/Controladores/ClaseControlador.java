@@ -4,14 +4,19 @@ import com.gymapp.GymApp.Entidades.Clase;
 import com.gymapp.GymApp.Exepcion.RecursoNoEncontradoExepcion;
 import com.gymapp.GymApp.Servicios.ClaseServicio;
 import com.gymapp.GymApp.dtos.ClaseDTO;
+import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/clase")
@@ -56,6 +61,8 @@ public class ClaseControlador {
         clase.setCupo(turnoModificado.getCupo());
         clase.setEntrenador(turnoModificado.getEntrenador());
         clase.setFechaYhora(turnoModificado.getFechaYhora());
+        clase.setPrecio(turnoModificado.getPrecio());
+        clase.setTurno(turnoModificado.getTurno());
 
         claseServicio.guardarClase(clase);
 
@@ -69,6 +76,30 @@ public class ClaseControlador {
 
         reservarClase(clase);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/eliminar/{id}")
+    public ResponseEntity<Map<String, Boolean>>
+            eliminarClase(@PathVariable Long id) {
+        Clase clase = claseServicio.buscarClase(id);
+        if (clase == null) {
+            throw new RecursoNoEncontradoExepcion("No se encontro el ID: " + id);
+        }
+        claseServicio.borrarClase(id);
+        //Json {"eliminado", true}
+        Map<String, Boolean> respuesta = new HashMap<>();
+        respuesta.put("eliminado", Boolean.TRUE);
+        return ResponseEntity.ok(respuesta);
+    }
+
+    @GetMapping(value = "paginados")
+    public ResponseEntity<Page<Clase>> obtenerListadoClase(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Clase> usuariosPage = claseServicio.listarClasePaginados(pageable);
+        return ResponseEntity.ok(usuariosPage);
     }
 
 }

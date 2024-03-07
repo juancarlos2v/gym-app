@@ -30,11 +30,11 @@ public class AuthController {
         return ResponseEntity.ok(authService.register(request));
     }
     
-    //http://localhost:8080/auth/A1
-    @GetMapping(value = "A1")
-    public String mensaje(){
-        return "Hola, este url es publico";
-    }
+//    //http://localhost:8080/auth/A1
+//    @GetMapping(value = "A1")
+//    public String mensaje(){
+//        return "Hola, este url es publico";
+//    }
     
     //http://localhost:8080/swagger-ui/index.html
     
