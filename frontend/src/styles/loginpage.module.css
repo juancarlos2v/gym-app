@@ -29,3 +29,8 @@ input {
   border-bottom: solid var(--grey-2) 0.1rem !important;
   border-radius: 0 !important;
 }
+.btnRegister {
+  background-color: var(--yellow);
+  color: var(--black-2);
+  margin-top: 3rem;
+}

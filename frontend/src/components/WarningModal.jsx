@@ -1,34 +1,19 @@
-import { useEffect, useState } from "react"
+import PropTypes from 'prop-types';
 import styles from "@styles/modal.module.css"
-import axios from "axios";
 
-const WarningModal = ({ onClose, selected, type }) => {
-    const [obj, setObj] = useState({});
+const WarningModal = ({ onClose, selected, onDelete }) => {
 
-    useEffect(() => {
-        setObj(selected)
-    }, [obj])
+    const handleClick = () => {
+        onDelete(selected);
+    };
+
+
     const closeModal = () => {
         onClose();
     }
 
-    // const baseURL = "http://localhost:8080";
-    // const deleteObj = () => {
-    //     if (type == 'm') {
-    //         axios.delete(`${baseURL}/api/usuarios/eliminar/${obj.id}`).then((response) => {
 
-    //         }).catch(e => {
-    //             console.log(e)
-    //         })
 
-    //     } else {
-    //         axios.delete(`${baseURL}/clase/eliminar/`).then((response) => {
-
-    //         }).catch(e => {
-    //             console.log(e)
-    //         })
-    //     }
-    // }
     return (
         <div className={styles.overlay}>
             <div className={styles.modal}>
@@ -38,11 +23,16 @@ const WarningModal = ({ onClose, selected, type }) => {
                     <path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" />
                     <path d="M12 16h.01" />
                 </svg>
-                <button onClick={() => deleteObj}>Eliminar</button>
-                <button onClick={closeModal}>Volver</button>
+                <button type="button" onClick={handleClick}>Eliminar</button>
+                <button type="button" onClick={closeModal}>Volver</button>
             </div>
         </div>
     )
 }
+WarningModal.propTypes = {
+    onClose: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    selected: PropTypes.func.isRequired
+};
 
 export default WarningModal

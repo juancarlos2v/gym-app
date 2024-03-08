@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import logo from "/logo.png"
 import styles from '@styles/loginpage.module.css'
 
 const Index = () => {
+    const navigate = useNavigate();
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
 
@@ -17,7 +19,7 @@ const Index = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        //axios.post()
+        navigate('/dashboard');
 
     };
 
@@ -44,6 +46,11 @@ const Index = () => {
                             value={password}
                             onChange={handlePassword}
                         />
+                        <button
+                            type="submit"
+                            className={`${styles.btnRegister}`} >
+                            Ingresar
+                        </button>
                     </form>
                 </div>
             </div>

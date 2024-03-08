@@ -1,6 +1,6 @@
 import styles from "@styles/list.module.css"
 import axios from 'axios';
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useListContext } from "../../Context/ListContext";
 import MemberModal from "../MemberModal";
 import InfoMember from "../InfoMember";
@@ -8,7 +8,7 @@ import ClassModal from "../ClassModal";
 import InfoClasses from "../InfoClasses";
 import WarningModal from "../WarningModal";
 
-const usuariosOffline = [
+let usuariosOffline = [
     {
         id: "54839",
         nombre: "Carlos",
@@ -19,9 +19,9 @@ const usuariosOffline = [
         direccion: "default",
         telefono: 3489842,
         telefonoAxiliar: "default",
-        membresia: "default",
+        membresia: 'GOLD',
         activo: true,
-        fechaDeVencimiento: "default",
+        fechaDeVencimiento: '13/09/1986',
         aptoFisico: true
 
     },
@@ -34,11 +34,11 @@ const usuariosOffline = [
         direccion: "default",
         telefono: 367675675,
         telefonoAxiliar: 367675675,
-        membresia: "default",
+        membresia: 'GOLD',
         expiracion: "default",
         activo: true,
-        fechaDeVencimiento: "default",
-        fechaDeNacimiento: "default",
+        fechaDeVencimiento: '13/09/2025',
+        fechaDeNacimiento: '13/09/1986',
         aptoFisico: true
     },
     {
@@ -50,11 +50,11 @@ const usuariosOffline = [
         direccion: "default",
         telefono: 453453,
         telefonoAxiliar: 767567657,
-        membresia: "default",
+        membresia: 'GOLD',
         expiracion: "default",
         activo: true,
-        fechaDeVencimiento: "default",
-        fechaDeNacimiento: "default",
+        fechaDeVencimiento: '13/09/2025',
+        fechaDeNacimiento: '13/09/1986',
         aptoFisico: true
     },
     {
@@ -66,11 +66,11 @@ const usuariosOffline = [
         direccion: "default",
         telefono: 53453453453,
         telefonoAxiliar: 75656756,
-        membresia: "default",
+        membresia: 'GOLD',
         expiracion: "default",
         activo: true,
-        fechaDeVencimiento: "default",
-        fechaDeNacimiento: "default",
+        fechaDeVencimiento: '13/09/2025',
+        fechaDeNacimiento: '13/09/1986',
         aptoFisico: true
     },
     {
@@ -82,11 +82,11 @@ const usuariosOffline = [
         direccion: "default",
         telefono: 5345344543,
         telefonoAxiliar: 75675675,
-        membresia: "default",
+        membresia: 'GOLD',
         expiracion: "default",
         activo: true,
-        fechaDeVencimiento: "default",
-        fechaDeNacimiento: "default",
+        fechaDeVencimiento: '13/09/2025',
+        fechaDeNacimiento: '13/09/1986',
         aptoFisico: true
     },
     {
@@ -98,11 +98,11 @@ const usuariosOffline = [
         direccion: "default",
         telefono: 234435,
         telefonoAxiliar: 75676534,
-        membresia: "default",
+        membresia: 'GOLD',
         expiracion: "default",
         activo: true,
-        fechaDeVencimiento: "default",
-        fechaDeNacimiento: "default",
+        fechaDeVencimiento: '13/09/2025',
+        fechaDeNacimiento: '13/09/1986',
         aptoFisico: true
     },
     {
@@ -114,11 +114,11 @@ const usuariosOffline = [
         direccion: "default",
         telefono: 5345355,
         telefonoAxiliar: 456464,
-        membresia: "default",
+        membresia: 'GOLD',
         expiracion: "default",
         activo: true,
-        fechaDeVencimiento: "default",
-        fechaDeNacimiento: "default",
+        fechaDeVencimiento: '13/09/2025',
+        fechaDeNacimiento: '13/09/1986',
         aptoFisico: true
     },
     {
@@ -130,16 +130,16 @@ const usuariosOffline = [
         direccion: "default",
         telefono: 53453,
         telefonoAxiliar: 64564546,
-        membresia: "default",
-        expiracion: "default",
+        membresia: 'GOLD',
+        expiracion: '13/09/2025',
         activo: true,
-        fechaDeVencimiento: "default",
-        fechaDeNacimiento: "default",
+        fechaDeVencimiento: '13/09/2025',
+        fechaDeNacimiento: '13/09/1986',
         aptoFisico: true
     }
 ]
 
-const classesOffline = [
+let classesOffline = [
     {
         "nombre": "Pilates",
         "entrenador": "Tomas Merlo",
@@ -183,9 +183,9 @@ const baseURL = "http://localhost:8080";
 
 const List = () => {
     const { list } = useListContext()
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState(usuariosOffline);
     const [userUpdate, setUserUpdate] = useState();
-    const [classes, setClasses] = useState([]);
+    const [classes, setClasses] = useState(classesOffline);
     const [dni, setDni] = useState('');
     const [className, setClassName] = useState('');
     const [modalU, setModalU] = useState(false);
@@ -194,40 +194,33 @@ const List = () => {
     const [modalR, setModalR] = useState(false)
     const [classUpdate, setClassUpdate] = useState();
     const [modalWarning, setModalWarning] = useState(false);
-    const [objDelete, setObjDelete] = useState();
-    const [type, setType] = useState('');
+
+    // useEffect(() => {
+    //     axios.get(`${baseURL}/api/usuarios`).then((response) => {
+    //         setUsers(response.data);
+    //         console.log(response.data)
+    //     }).catch(error => {
+    //         console.log("Offline", error.data)
+
+    //     });
+    // }, []);
+
+    // useEffect(() => {
+    //     axios.get(`${baseURL}/api/clases`).then((response) => {
+    //         setClasses(response.data);
+    //     }).catch(error => {
+    //         console.log("Offline", error.data)
+    //         setClasses(classesOffline)
+    //     });
+    // }, []);
 
     useEffect(() => {
-        axios.get(`${baseURL}/api/usuarios`).then((response) => {
-            setUsers(response.data);
-            console.log(response.data)
-        }).catch(error => {
-            console.log("Offline", error.data)
-            setUsers(usuariosOffline)
-        });
-    }, []);
 
-    useEffect(() => {
-        axios.get(`${baseURL}/api/clases`).then((response) => {
-            setClasses(response.data);
-        }).catch(error => {
-            console.log("Offline", error.data)
-            setClasses(classesOffline)
-        });
-    }, []);
+    }, [users])
 
     const findByDNI = () => {
-        axios.get(`${baseURL}/api/usuarios/porDni/${dni}`)
-            .then(response => {
-                console.log(dni)
-                setUsers(response.data);
-            })
-            .catch(error => {
-                const userFinded = usuariosOffline.find(user => user.dni == dni)
-                setUsers(userFinded);
-                console.log(error)
-
-            });
+        const userFinded = usuariosOffline.find(user => user.dni == dni)
+        setUsers(userFinded);
     }
 
     const findClassbyName = () => {
@@ -270,11 +263,33 @@ const List = () => {
 
     }
 
-    const modalDelete = (obj, m) => {
-        setType(m);
-        setObjDelete(obj);
-        setModalWarning(true);
+    //borrar
+    const deleteEntity = (u) => {
+        if ('membresia' in u) {
+            const usuariosOffline = users.filter(item => item.id !== u.id);
+            setUsers(usuariosOffline);
+            setModalWarning(false);
+
+        }
+        else {
+            const updateData = classes.filter(item => item.id !== u.id);
+            setUsers(updateData);
+            setModalWarning(false);
+        }
+
     }
+
+    //agregar
+    const addEntity = (u) => {
+        setUsers(users => [...users, u]);
+        console.log(u)
+    }
+
+    const showWarning = (item) => {
+        setUserUpdate(item);
+        setModalWarning(true)
+    }
+
 
     return (
         <>
@@ -293,7 +308,7 @@ const List = () => {
 
                                 <button
                                     className={`${styles.btnFinder}`}
-                                    onClick={() => findByDNI}>
+                                    onClick={() => findByDNI()}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-search" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
@@ -382,7 +397,7 @@ const List = () => {
                                                                 <path d="M16 5l3 3" />
                                                             </svg>
                                                         </button>
-                                                        <button onClick={() => modalDelete(user, "m")} >
+                                                        <button onClick={() => showWarning(user)} >
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash-filled" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                                 <path d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z" strokeWidth="0" fill="#303030" />
@@ -416,7 +431,7 @@ const List = () => {
                                                         <path d="M16 5l3 3" />
                                                     </svg>
                                                 </button>
-                                                <button onClick={() => modalDelete(users, "m")} >
+                                                <button onClick={() => showWarning(users)} >
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash-filled" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                         <path d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z" strokeWidth="0" fill="#303030" />
@@ -477,7 +492,7 @@ const List = () => {
                                                                 <path d="M16 5l3 3" />
                                                             </svg>
                                                         </button>
-                                                        <button onClick={() => modalDelete(c, "c")}>
+                                                        <button onClick={() => showWarning(c)}>
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash-filled" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                                 <path d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z" strokeWidth="0" fill="#303030" />
@@ -514,7 +529,7 @@ const List = () => {
                                                         <path d="M16 5l3 3" />
                                                     </svg>
                                                 </button>
-                                                <button onClick={() => modalDelete(classes, "c")}>
+                                                <button onClick={() => showWarning(classes)}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash-filled" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                         <path d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z" strokeWidth="0" fill="#303030" />
@@ -539,8 +554,9 @@ const List = () => {
                 modalU ?
                     <MemberModal
                         onClose={setModalU.bind(null, false)}
+                        addEntity={addEntity}
                         selected={userUpdate}
-                    //mode={modalMode}
+
 
                     /> :
                     null
@@ -580,9 +596,9 @@ const List = () => {
                 {
                     modalWarning ?
                         <WarningModal
-                            onClose={setModalInfoC.bind(null, false)}
-                            selected={objDelete}
-                            type={type}
+                            onClose={setModalWarning.bind(null, false)}
+                            onDelete={deleteEntity}
+                            selected={userUpdate}
                         /> :
                         null
                 }
