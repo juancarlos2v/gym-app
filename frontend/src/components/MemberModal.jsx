@@ -194,7 +194,7 @@ const MemberModal = ({ onClose, selected }) => {
                     </div>
 
                     {error && <p>{error}</p>}
-                    <div className={`${styles.button} d-flex justify-content-between`}>
+                    <div className={`${styles.button} d-flex `}>
                         <button type="submit" className={styles.btnRegister} >Registrar</button>
                         <button type="button" className={styles.btnBack} onClick={closeModal} >Volver</button>
                     </div>

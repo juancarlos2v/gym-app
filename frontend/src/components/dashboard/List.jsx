@@ -2,8 +2,11 @@ import styles from "@styles/list.module.css"
 import axios from 'axios';
 import { useState, useEffect } from "react";
 import { useListContext } from "../../Context/ListContext";
-import MemberModal from "../NewMemberModal";
+import MemberModal from "../MemberModal";
 import InfoMember from "../InfoMember";
+import ClassModal from "../ClassModal";
+import InfoClasses from "../InfoClasses";
+import WarningModal from "../WarningModal";
 
 const usuariosOffline = [
     {
@@ -187,6 +190,12 @@ const List = () => {
     const [className, setClassName] = useState('');
     const [modalU, setModalU] = useState(false);
     const [modalInfo, setModalInfo] = useState(false);
+    const [modalInfoC, setModalInfoC] = useState(false);
+    const [modalR, setModalR] = useState(false)
+    const [classUpdate, setClassUpdate] = useState();
+    const [modalWarning, setModalWarning] = useState(false);
+    const [objDelete, setObjDelete] = useState();
+    const [type, setType] = useState('');
 
     useEffect(() => {
         axios.get(`${baseURL}/api/usuarios`).then((response) => {
@@ -208,8 +217,9 @@ const List = () => {
     }, []);
 
     const findByDNI = () => {
-        axios.get(`${baseURL}/api/${dni}`)
+        axios.get(`${baseURL}/api/usuarios/porDni/${dni}`)
             .then(response => {
+                console.log(dni)
                 setUsers(response.data);
             })
             .catch(error => {
@@ -221,7 +231,7 @@ const List = () => {
     }
 
     const findClassbyName = () => {
-        axios.get(`${baseURL}/api/${className}`)
+        axios.get(`${baseURL}/clase/buscarEntrenador/${className}`)
             .then(response => {
                 setClasses(response.data)
             })
@@ -248,8 +258,22 @@ const List = () => {
 
     }
 
-    const newClass = () => {
+    const modalClassActive = (classes) => {
+        setClassUpdate(classes);
+        setModalR(true);
+        console.log(modalR)
+        console.log(classes)
+    }
+    const modalInfoActiveC = (classes) => {
+        setClassUpdate(classes);
+        setModalInfoC(true)
 
+    }
+
+    const modalDelete = (obj, m) => {
+        setType(m);
+        setObjDelete(obj);
+        setModalWarning(true);
     }
 
     return (
@@ -257,28 +281,61 @@ const List = () => {
             <div>
                 <div className={`${styles.titlesearch} d-flex`}>
                     <h3 className="col-7">Lista de {list === 'M' ? <span>miembros</span> : <span>clases</span>}</h3>
-                    <div className={`${styles.buttons} col-5 d-flex justify-content-between`} >
+                    <div className={`${styles.buttons} d-flex`} >
                         {list == 'M' ?
-                            <><input
-                                type="text"
-                                placeholder="DNI"
-                                value={dni}
-                                onChange={(e) => setDni(e.target.value)} /><button className={styles.btnFinder} onClick={findByDNI}>
+                            <div className="d-flex align-items-end" >
+                                <input
+                                    className="d-flex justify-content-end "
+                                    type="text"
+                                    placeholder="DNI"
+                                    value={dni}
+                                    onChange={(e) => setDni(e.target.value)} />
+
+                                <button
+                                    className={`${styles.btnFinder}`}
+                                    onClick={() => findByDNI}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-search" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
                                         <path d="M21 21l-6 -6" />
-                                    </svg></button><button
-                                        onClick={() => modalMemberActive({})}>Registrar
+                                    </svg>
                                 </button>
-                            </> :
-                            <> <input
-                                type="text"
-                                placeholder="Nombre"
-                                value={className}
-                                onChange={(e) => setClassName(e.target.value)} />
-                                <button onClick={findClassbyName}>Buscar</button>
-                                <button onClick={newClass} >Registrar</button></>
+                                <button
+                                    className={`${styles.btnFinder}`}
+                                    onClick={() => modalMemberActive({})}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-plus" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M12 5l0 14" />
+                                        <path d="M5 12l14 0" />
+                                    </svg>
+                                </button>
+
+                            </div> :
+                            <div className="d-flex align-items-end" >
+                                <input
+                                    type="text"
+                                    placeholder="Nombre"
+                                    value={className}
+                                    onChange={(e) => setClassName(e.target.value)} />
+                                <button
+                                    className={`${styles.btnFinder}`}
+                                    onClick={() => findClassbyName}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-search" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                                        <path d="M21 21l-6 -6" />
+                                    </svg>
+                                </button>
+                                <button
+                                    className={`${styles.btnFinder}`}
+                                    onClick={() => modalClassActive({})} >
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-plus" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M12 5l0 14" />
+                                        <path d="M5 12l14 0" />
+                                    </svg>
+                                </button>
+                            </div>
                         }
                     </div>
                 </div>
@@ -325,7 +382,7 @@ const List = () => {
                                                                 <path d="M16 5l3 3" />
                                                             </svg>
                                                         </button>
-                                                        <button >
+                                                        <button onClick={() => modalDelete(user, "m")} >
                                                             <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash-filled" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                                 <path d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z" strokeWidth="0" fill="#303030" />
@@ -359,7 +416,13 @@ const List = () => {
                                                         <path d="M16 5l3 3" />
                                                     </svg>
                                                 </button>
-                                                <button >Eliminar</button>
+                                                <button onClick={() => modalDelete(users, "m")} >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash-filled" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <path d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z" strokeWidth="0" fill="#303030" />
+                                                        <path d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z" strokeWidth="0" fill="#303030" />
+                                                    </svg>
+                                                </button>
                                             </td>
                                         </tr>
                                 }
@@ -367,39 +430,109 @@ const List = () => {
                         </table>
                     </div>
                 }
-                {list == "C" && <div className="pt-5">
-                    <table className={`${styles.table}`}>
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Entrenador</th>
-                                <th>Horario</th>
-                                <th>Turno</th>
-                                <th>Precio</th>
-                                <th>Activo</th>
-                                <th>Cupo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {classes.map((c, index) => {
-                                return (
-                                    <tr key={index} className='flex justify-around mt-10 bg-red-400 rounded-md py-4 items-center'>
-                                        <td>{c.nombre}</td>
-                                        <td>{c.entrenador}</td>
-                                        <td>{c.fechaYhora}</td>
-                                        <td>{c.turno}</td>
-                                        <td>{`$${c.precio}`} </td>
-                                        <td>{c.activo ? "Sí" : "No"}</td>
-                                        <td>{c.cupo}</td>
+                {
 
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
+                    list == "C" && <div className="pt-5">
+                        <table className={`${styles.table}`}>
+
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Entrenador</th>
+                                    <th>Horario</th>
+                                    <th>Turno</th>
+                                    <th>Precio</th>
+                                    <th>Activo</th>
+                                    <th>Cupo</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    Array.isArray(classes) ?
+                                        classes.map((c, index) => {
+                                            return (
+                                                <tr key={index} className='flex justify-around mt-10 bg-red-400 rounded-md py-4 items-center'>
+                                                    <td>{c.nombre}</td>
+                                                    <td>{c.entrenador}</td>
+                                                    <td>{c.fechaYhora}</td>
+                                                    <td>{c.turno}</td>
+                                                    <td>{`$${c.precio}`} </td>
+                                                    <td>{c.activo ? "Sí" : "No"}</td>
+                                                    <td>{c.cupo}</td>
+                                                    <td>
+                                                        <button onClick={() => modalInfoActiveC(c)} >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-info-circle" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                                <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                                                                <path d="M12 9h.01" />
+                                                                <path d="M11 12h1v4h1" />
+                                                            </svg>
+                                                        </button>
+                                                        <button onClick={() => modalClassActive(c)}>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-edit" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                                                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                                                <path d="M16 5l3 3" />
+                                                            </svg>
+                                                        </button>
+                                                        <button onClick={() => modalDelete(c, "c")}>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash-filled" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                                <path d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z" strokeWidth="0" fill="#303030" />
+                                                                <path d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z" strokeWidth="0" fill="#303030" />
+                                                            </svg>
+                                                        </button>
+                                                    </td>
+
+                                                </tr>
+                                            );
+                                        }) :
+                                        <tr key={0} className='flex justify-around mt-10 bg-red-400 rounded-md py-4 items-center'>
+                                            <td>{classes.nombre}</td>
+                                            <td>{classes.entrenador}</td>
+                                            <td>{classes.fechaYhora}</td>
+                                            <td>{classes.turno}</td>
+                                            <td>{`$${classes.precio}`} </td>
+                                            <td>{classes.activo ? "Sí" : "No"}</td>
+                                            <td>{classes.cupo}</td>
+                                            <td>
+                                                <button onClick={() => modalInfoActive(classes)}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-info-circle" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+                                                        <path d="M12 9h.01" />
+                                                        <path d="M11 12h1v4h1" />
+                                                    </svg>
+                                                </button>
+                                                <button onClick={() => modalMemberActive(classes)}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-edit" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                                        <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                                        <path d="M16 5l3 3" />
+                                                    </svg>
+                                                </button>
+                                                <button onClick={() => modalDelete(classes, "c")}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash-filled" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#303030" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <path d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16z" strokeWidth="0" fill="#303030" />
+                                                        <path d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z" strokeWidth="0" fill="#303030" />
+                                                    </svg>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                }
 
 
-                    </table>
-                </div>}
+                            </tbody>
+
+
+                        </table>
+                    </div>
+
+                }
             </div>
 
             <div> {
@@ -419,6 +552,37 @@ const List = () => {
                         <InfoMember
                             onClose={setModalInfo.bind(null, false)}
                             selected={userUpdate}
+                        /> :
+                        null
+                }
+            </div>
+            <div>
+                {
+                    modalR ?
+                        <ClassModal
+                            onClose={setModalR.bind(null, false)}
+                            selected={classUpdate}
+                        /> :
+                        null
+                }
+            </div>
+            <div>
+                {
+                    modalInfoC ?
+                        <InfoClasses
+                            onClose={setModalInfoC.bind(null, false)}
+                            selected={classUpdate}
+                        /> :
+                        null
+                }
+            </div>
+            <div>
+                {
+                    modalWarning ?
+                        <WarningModal
+                            onClose={setModalInfoC.bind(null, false)}
+                            selected={objDelete}
+                            type={type}
                         /> :
                         null
                 }

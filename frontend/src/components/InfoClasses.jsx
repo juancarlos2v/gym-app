@@ -1,12 +1,11 @@
+import { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import styles from "@styles/modal.module.css"
-import { useEffect, useState } from 'react';
-
-const InfoMember = ({ onClose, selected }) => {
-    const [userInfo, setUserinfo] = useState({});
+const InfoClasses = ({ onClose, selected }) => {
+    const [classInfo, setClassInfo] = useState({});
 
     useEffect(() => {
-        setUserinfo(selected);
+        setClassInfo(selected);
     }, [selected])
 
     const closeModal = () => {
@@ -16,16 +15,13 @@ const InfoMember = ({ onClose, selected }) => {
         <div className={styles.overlay}>
             <div className={`${styles.modal} d-flex justify-content-between`} >
                 <div>
-                    <p>{`Nombre y Apellido: ${userInfo.nombre} ${userInfo.apellido}`} </p>
-                    <p> DNI: {`  ${userInfo.dni}`} </p>
-                    <p>Fecha de Nacimiento: {`  ${userInfo.fechaDeNacimiento}`} </p>
-                    <p>E-mail: {`  ${userInfo.direccion}`} </p>
-                    <p>Telefono:{`  ${userInfo.telefono}`} </p>
-                    <p>Telefono de Emergencia:{`  ${userInfo.telefonoAuxiliar}`} </p>
-                    <p> Apto Fisico{`  ${userInfo.aptoFisico}`} </p>
-                    <p>Membresia: {`  ${userInfo.membresia}`} </p>
-                    <p>Vencimiento: {`  ${userInfo.expiracion}`} </p>
-                    <p>Estado: {`  ${userInfo.estado}`} </p>
+                    <p>Nombre:{`  ${classInfo.nombre}`} </p>
+                    <p>Entrenador:{`  ${classInfo.entrenador}`} </p>
+                    <p>Fecha:{`  ${classInfo.fechaYhora}`} </p>
+                    <p>Turno:{`  ${classInfo.turno}`} </p>
+                    <p>Precio:{`  ${classInfo.precio}`} </p>
+                    <p>Activo:{`  ${classInfo.activo}`} </p>
+                    <p>Cupo: {`  ${classInfo.cupo}`} </p>
                 </div>
                 <button
                     onClick={closeModal}
@@ -41,9 +37,10 @@ const InfoMember = ({ onClose, selected }) => {
         </div>
     )
 }
-InfoMember.propTypes = {
+
+InfoClasses.propTypes = {
     onClose: PropTypes.func.isRequired,
     selected: PropTypes.func.isRequired
 };
 
-export default InfoMember
+export default InfoClasses
