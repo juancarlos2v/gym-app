@@ -1,4 +1,4 @@
-package com.gymapp.GymApp.Security.User;
+package com.gymapp.GymApp.Security.Admin;
 
 import java.util.Collection;
 import java.util.List;

@@ -1,8 +1,8 @@
 package com.gymapp.GymApp.Security.Auth;
 
 import com.gymapp.GymApp.Security.Jwt.JwtService;
-import com.gymapp.GymApp.Security.User.Admin;
-import com.gymapp.GymApp.Security.User.UserRepository;
+import com.gymapp.GymApp.Security.Admin.Admin;
+import com.gymapp.GymApp.Security.Admin.UserRepository;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
