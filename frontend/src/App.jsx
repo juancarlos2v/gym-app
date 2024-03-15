@@ -4,6 +4,7 @@ import LoginAdmin from '@pages/LoginAdmin'
 import Dashboard from '@pages/Dashboard'
 import "@styles/normalize.css"
 import "@styles/global.css"
+import Home from '@pages/Home'
 
 
 function App() {
@@ -11,7 +12,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path='/admin/login' element={<LoginAdmin />} />
+        <Route exact path='/' element={<Home />} />
+        <Route exact path='/dashboard/login' element={<LoginAdmin />} />
         <Route exact path='/dashboard' element={<Dashboard />} />
       </Routes>
     </>

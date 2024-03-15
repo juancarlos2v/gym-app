@@ -11,6 +11,8 @@
   --green-dark: #4b6742;
   --orange: #e5843e;
   --orange-dark: #724233;
+  --padding: 0rem 10rem 0 10rem;
+  --button-border: 2rem 2rem 2rem 2rem;
 }
 p {
   margin: 0 !important;
@@ -35,4 +37,9 @@ input {
   padding: 0;
   /* Otros estilos personalizados según sea necesario */
   outline: none;
+}
+
+a {
+  color: inherit; /* Anula el color predeterminado */
+  text-decoration: none !important; /* Anula la decoración de texto predeterminada */
 }

@@ -1,0 +1,25 @@
+.nav {
+  background-color: var(--black);
+  padding: var(--padding);
+}
+
+.button {
+  background-color: var(--yellow);
+  border-radius: var(--button-border);
+  color: var(--black) !important;
+  padding: 0.4rem 1rem;
+}
+
+.link {
+  align-items: center;
+}
+
+.link > a {
+  font-size: large;
+  font-weight: bolder;
+  color: var(--white);
+}
+
+nav > img {
+  height: 50%;
+}

@@ -1,7 +1,7 @@
 import logo from "/logo.png"
 import style from "@styles/dashboardmain.module.css"
 import { useState, useEffect } from "react";
-import { useListContext } from "../../Context/ListContext";
+import { useListContext } from "@context/ListContext";
 
 const Main = () => {
     const [time, setTime] = useState(new Date());

@@ -38,6 +38,10 @@ export default defineConfig({
         find: "@images",
         replacement: path.resolve(path.join(__dirname, "/public")),
       },
+      {
+        find: "@context",
+        replacement: path.resolve(path.join(__dirname, "/src/context")),
+      },
     ],
   },
 });

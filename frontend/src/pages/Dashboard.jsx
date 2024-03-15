@@ -3,7 +3,7 @@ import CardC from "@components/dashboard/CardC"
 import CardM from "@components/dashboard/CardM"
 import Main from "@components/dashboard/Main"
 import List from "@components/dashboard/List"
-import { ListProvider } from "../Context/ListContext"
+import { ListProvider } from "@context/ListContext"
 const Dashboard = () => {
 
 

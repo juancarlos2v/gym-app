@@ -1,9 +1,9 @@
 import styles from "@styles/list.module.css"
 import axios from 'axios';
 import { useState, useEffect } from "react";
-import { useListContext } from "../../Context/ListContext";
-import MemberModal from "../NewMemberModal";
-import InfoMember from "../InfoMember";
+import { useListContext } from "@context/ListContext";
+import MemberModal from "@components/NewMemberModal";
+import InfoMember from "@components/InfoMember";
 
 const usuariosOffline = [
     {
