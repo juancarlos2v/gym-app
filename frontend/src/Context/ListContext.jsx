@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const ListContext = createContext();
 
 export const ListProvider = ({ children }) => {
-    const [list, setList] = useState(null);
+    const [list, setList] = useState("M");
 
     return (
         <ListContext.Provider value={{ list, setList }} >

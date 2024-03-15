@@ -1,0 +1,31 @@
+.background {
+  background-image: url("../../public/loginwallpaper.jpeg");
+  height: 100vh;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+.background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.61
+  ); /* Color de fondo semitransparente (negro en este caso) */
+}
+
+h1 {
+  font-weight: 800 !important;
+}
+
+input {
+  border-bottom: solid var(--grey-2) 0.1rem !important;
+  border-radius: 0 !important;
+}

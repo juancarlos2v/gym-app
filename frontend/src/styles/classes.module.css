@@ -1,0 +1,12 @@
+.container {
+  padding: var(--padding);
+  margin-top: 5rem;
+}
+.images {
+  margin-top: 4rem;
+}
+
+.images > img {
+  width: 30%;
+  height: auto;
+}

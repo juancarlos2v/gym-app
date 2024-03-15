@@ -1,0 +1,32 @@
+.containerForm {
+  background-color: var(--grey-2);
+  padding: var(--padding);
+}
+
+.containerForm p {
+  font-weight: 700;
+  color: var(--white);
+}
+
+.containerForm input {
+  background-color: transparent !important;
+  border-bottom: solid 0.15rem var(--white) !important;
+  margin-top: 1rem;
+  color: var(--white);
+}
+.containerForm input::placeholder {
+  color: var(--white);
+}
+
+.form form {
+  margin-top: 2rem;
+}
+
+.containerForm button {
+  background-color: var(--black);
+  border-radius: var(--button-border);
+  border: none;
+  margin-top: 2rem;
+  width: 6rem;
+  font-weight: 600;
+}

@@ -1,6 +1,5 @@
 
-
-const Index = () => {
+const newClass = () => {
     return (
         <div>
 
@@ -8,4 +7,4 @@ const Index = () => {
     )
 }
 
-export default Index
+export default newClass
