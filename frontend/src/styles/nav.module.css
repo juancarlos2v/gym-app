@@ -22,9 +22,9 @@
   font-weight: bolder;
   color: var(--white);
 }
-/* .nav img {
+.nav img {
   width: 70%;
-} */
+}
 
 .nav h1 {
   color: var(--white);

@@ -17,3 +17,12 @@
   border-bottom: solid 0.1rem var(--white);
   margin-bottom: 1rem;
 }
+
+@media screen and (max-width: 991.98px) {
+  .container {
+    padding: var(--padding-responsive);
+  }
+  .question {
+    margin-top: 1rem;
+  }
+}

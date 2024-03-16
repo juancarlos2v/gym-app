@@ -33,3 +33,13 @@
 .ba {
   width: 30%;
 }
+
+@media screen and (max-width: 991.98px) {
+  .container {
+    padding: var(--padding-responsive);
+    margin-top: 0rem;
+  }
+  .container p {
+    margin-bottom: 0;
+  }
+}
