@@ -8,9 +8,9 @@ const Class = () => {
         <div className={`${styles.container}`}>
             <h1>CONOCÉ NUESTRAS CLASES</h1>
             <div className={`${styles.images} d-flex justify-content-between`}>
-                <img src={class1} alt="" />
-                <img src={class2} alt="" />
-                <img src={class3} alt="" />
+                <img src={class1} alt="Musculación" />
+                <img src={class2} alt="Natación" />
+                <img src={class3} alt="Cuerpo y Mente" />
             </div>
         </div>
     )

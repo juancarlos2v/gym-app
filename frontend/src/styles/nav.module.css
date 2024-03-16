@@ -1,6 +1,9 @@
 .nav {
+  height: 10rem;
   background-color: var(--black);
   padding: var(--padding);
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .button {
@@ -19,7 +22,23 @@
   font-weight: bolder;
   color: var(--white);
 }
+/* .nav img {
+  width: 70%;
+} */
 
-nav > img {
-  height: 50%;
+.nav h1 {
+  color: var(--white);
+  margin: 0;
+}
+
+@media screen and (max-width: 1200px) {
+  .nav {
+    padding: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .nav img {
+    width: 30%;
+  }
 }

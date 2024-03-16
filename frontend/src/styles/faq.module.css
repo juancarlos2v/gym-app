@@ -1,0 +1,19 @@
+.container {
+  background-color: var(--grey-1);
+  color: var(--white);
+  padding: var(--padding);
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  margin-top: 8rem;
+}
+.yellow {
+  color: var(--yellow);
+}
+.container h1 {
+  margin: 0;
+}
+
+.question {
+  border-bottom: solid 0.1rem var(--white);
+  margin-bottom: 1rem;
+}
