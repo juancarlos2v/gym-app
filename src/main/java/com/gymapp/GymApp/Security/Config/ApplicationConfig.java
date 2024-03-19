@@ -1,6 +1,6 @@
 package com.gymapp.GymApp.Security.Config;
 
-import com.gymapp.GymApp.Security.User.UserRepository;
+import com.gymapp.GymApp.Security.Admin.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

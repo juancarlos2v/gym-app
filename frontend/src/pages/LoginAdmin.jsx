@@ -59,11 +59,16 @@ const Index = () => {
                             value={password}
                             onChange={handlePassword}
                         />
+                        <button
+                            type="submit"
+                            className={`${styles.btnRegister}`} >
+                            Ingresar
+                        </button>
                     </form>
                 </div>
             </div>
             <div className={`${styles.background} col-8`}>
-                <p>hoasd</p>
+
             </div>
 
         </div>

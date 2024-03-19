@@ -27,7 +27,8 @@ label {
   margin-top: 0.7rem;
 }
 .button > button {
-  margin-top: 3rem;
+  margin-top: 2rem;
+  margin-right: 0.8rem;
   border: none;
   width: 7rem;
   padding: 0.5rem;
@@ -41,4 +42,8 @@ label {
 
 .btnBack {
   border: solid var(--white) 0.1rem !important;
+}
+
+.titleInfo {
+  font-weight: 800 !important;
 }

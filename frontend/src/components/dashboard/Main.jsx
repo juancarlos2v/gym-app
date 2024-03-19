@@ -6,13 +6,17 @@ import { useListContext } from "@context/ListContext";
 const Main = () => {
     const [time, setTime] = useState(new Date());
     const { setList } = useListContext();
+    const [activeButton, setActiveButton] = useState('members');
+
 
 
     const showMembers = () => {
+        setActiveButton('members');
         setList('M');
     };
 
     const showClass = () => {
+        setActiveButton('class');
         setList('C');
     };
 
@@ -38,13 +42,16 @@ const Main = () => {
     return (
 
         <div className={`${style.main}  d-flex flex-column justify-content-between`}>
-            <div className={`${style.background}  mb-4 d-flex flex-column justify-content-center align-items-center`} >
+            <div className={`${style.background}  mt-5 d-flex flex-column justify-content-center align-items-center`} >
                 <img src={logo} alt="gymove" />
                 <p className={style.title}>GYMOVE</p>
             </div>
             <div >
                 <div className="d-flex flex-column justify-content-end">
-                    <button onClick={showMembers} className={`${style.buttons}`} >
+                    <button
+                        onClick={showMembers}
+                        className={`${style.buttons}
+                        ${activeButton === 'members' ? style.active : ''}`} >
                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-military-award" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '15px' }}>
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M12 13m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
@@ -57,7 +64,11 @@ const Main = () => {
 
 
                 <div className={`${style.border} d-flex flex-column justify-content-end `}>
-                    <button onClick={showClass} className={`${style.buttons}`}>
+                    <button
+                        onClick={showClass}
+                        className={`${style.buttons}
+                        ${activeButton === 'class' ? style.active : ''}`}
+                    >
                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-check" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '15px' }}>
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />

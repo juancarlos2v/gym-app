@@ -2,9 +2,11 @@ package com.gymapp.GymApp.Servicios;
 
 
 import com.gymapp.GymApp.Entidades.Clase;
-import com.gymapp.GymApp.Entidades.Usuario;
 
 import java.util.List;
+import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IClaseServicio {
 
@@ -16,5 +18,7 @@ public interface IClaseServicio {
     void cancelarClase(Long id_usuario, Long id_clase);
     void borrarClase(Long id);
     void guardarClase(Clase clase);
+    Optional<Clase> buscarPorEntrenador(String entrenador);
+    Page<Clase> listarClasePaginados(Pageable pageable);
 
 }

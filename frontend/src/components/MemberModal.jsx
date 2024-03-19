@@ -1,63 +1,62 @@
 import PropTypes from 'prop-types';
 import styles from "@styles/modal.module.css"
 import { useEffect, useState } from "react";
-import axios from 'axios';
 
-const MemberModal = ({ onClose, selected }) => {
+const MemberModal = ({ onClose, selected, addEntity }) => {
     const [newUser, setNewUser] = useState({});
     useEffect(() => {
         if (Object.keys(selected).length !== 0) {
             setNewUser({
                 id: selected.id,
-                name: selected.nombre,
-                lastName: selected.apellido,
+                nombre: selected.nombre,
+                apellido: selected.apellido,
                 dni: selected.dni,
-                birthday: selected.fechaDeNacimiento,
+                fechaDeNacimiento: selected.fechaDeNacimiento,
                 email: selected.email,
-                address: selected.direccion,
-                phone: selected.telefono,
-                phoneE: selected.telefonoAxiliar,
-                apto: selected.aptoFisico,
-                membershipType: selected.membresia,
-                membershipExpiration: selected.fechaDeVencimiento,
+                direccion: selected.direccion,
+                telefono: selected.telefono,
+                telefonoAxiliar: selected.telefonoAxiliar,
+                aptoFisico: selected.aptoFisico,
+                membresia: selected.membresia,
+                fechaDeVencimiento: selected.fechaDeVencimiento,
                 activo: selected.activo
             });
         } else {
             setNewUser({
-                name: '',
+                nombre: '',
                 lastName: '',
                 dni: '',
-                birthday: '',
+                fechaDeNacimiento: '',
                 email: '',
-                address: '',
-                phone: '',
-                phoneE: '',
-                apto: '',
-                membershipType: '',
-                membershipExpiration: '',
+                direccion: '',
+                telefono: '',
+                phtelefonoAxiliaroneE: '',
+                aptoFisico: '',
+                membresia: '',
+                fechaDeVencimiento: '',
                 activo: ''
             });
         }
     }, [selected])
 
     const inputs = [
-        { id: 'name', name: 'name', label: 'Nombre' },
-        { id: 'lastName', name: 'lastName', label: 'Apellido' },
+        { id: 'nombre', name: 'nombre', label: 'Nombre' },
+        { id: 'apellido', name: 'apellido', label: 'Apellido' },
         { id: 'email', name: 'email', label: 'E-mail' },
         { id: 'dni', name: 'dni', label: 'Documento de Identidad', type: 'number' },
-        { id: 'birthday', name: 'birthday', label: 'Fecha de Nacimiento' },
-        { id: 'phone', name: 'phone', label: 'Telefono', type: 'number' },
-        { id: 'phoneE', name: 'phoneE', label: 'Telefono de Emergencia', type: 'number' },
-        { id: 'membershipType', name: 'membershipType', label: 'Membresia' },
-        { id: 'membershipExpiration', name: 'membershipExpiration', label: 'Vencimiento', },
-        { id: 'address', name: 'address', label: 'Direccion' },
-        { id: 'apto', name: 'apto', label: 'Apto' },
+        { id: 'fechaDeNacimiento', name: 'fechaDeNacimiento', label: 'Fecha de Nacimiento' },
+        { id: 'telefono', name: 'telefono', label: 'Telefono', type: 'number' },
+        { id: 'telefonoAxiliar', name: 'telefonoAxiliar', label: 'Telefono de Emergencia', type: 'number' },
+        { id: 'membresia', name: 'membresia', label: 'Membresia' },
+        { id: 'fechaDeVencimiento', name: 'fechaDeVencimiento', label: 'Vencimiento', },
+        { id: 'direccion', name: 'direccion', label: 'Direccion' },
+        { id: 'aptoFisico', name: 'aptoFisico', label: 'Apto' },
         { id: 'activo', name: 'activo', label: 'Estado' },
 
     ];
 
     const [error, setError] = useState('');
-    const baseURL = "http://localhost:8080";
+    //const baseURL = "http://localhost:8080";
     const closeModal = () => {
         onClose();
     }
@@ -71,34 +70,29 @@ const MemberModal = ({ onClose, selected }) => {
     };
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        axios.post(`${baseURL}/api/usuarios/${newUser}`)
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.log(error.data)
-            })
-
-
         //validaciones
         if (!Object.values(newUser).every(value => value !== '')) {
             setError('Complete todos los campos');
             return;
+        } else {
+            console.log(newUser);
+            addEntity(newUser);
+            setNewUser({
+                name: '',
+                lastName: '',
+                dni: '',
+                birthday: '',
+                email: '',
+                address: '',
+                phone: '',
+                phoneE: '',
+                apto: '',
+                membershipType: '',
+                membershipExpiration: '',
+            });
+            closeModal();
         }
-        setNewUser({
-            name: '',
-            lastName: '',
-            dni: '',
-            birthday: '',
-            email: '',
-            address: '',
-            phone: '',
-            phoneE: '',
-            apto: '',
-            membershipType: '',
-            membershipExpiration: '',
-        });
+
     };
 
 
@@ -194,7 +188,7 @@ const MemberModal = ({ onClose, selected }) => {
                     </div>
 
                     {error && <p>{error}</p>}
-                    <div className={`${styles.button} d-flex justify-content-between`}>
+                    <div className={`${styles.button} d-flex `}>
                         <button type="submit" className={styles.btnRegister} >Registrar</button>
                         <button type="button" className={styles.btnBack} onClick={closeModal} >Volver</button>
                     </div>
@@ -206,7 +200,8 @@ const MemberModal = ({ onClose, selected }) => {
 
 MemberModal.propTypes = {
     onClose: PropTypes.func.isRequired,
-    selected: PropTypes.func.isRequired
+    selected: PropTypes.func.isRequired,
+    addEntity: PropTypes.func.isRequired
 };
 
 export default MemberModal

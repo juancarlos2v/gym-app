@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ClaseServicio implements IClaseServicio {
@@ -14,11 +18,11 @@ public class ClaseServicio implements IClaseServicio {
     @Autowired
     private ClaseDao claseDao;
     @Autowired
-    private UsuarioServicio usuarioServicio ;
+    private UsuarioServicio usuarioServicio;
 
     @Override
     public List<Clase> listarClases() {
-       return (List<Clase>) claseDao.findAll();
+        return (List<Clase>) claseDao.findAll();
     }
 
     @Override
@@ -32,21 +36,21 @@ public class ClaseServicio implements IClaseServicio {
     }
 
 
-  /*  @Override
+    /*  @Override
     public void modificarClase(Clase clase) {
         return null;
     }
-*/
+     */
     @Override
     public void reservarClase(Long id_usuario, Long id_clase) {
-        Usuario usuario= usuarioServicio.buscarPorId(id_usuario);
+        Usuario usuario = usuarioServicio.buscarPorId(id_usuario);
         Clase clase = buscarClase(id_clase);
 
-        if(usuario!=null && clase!=null){
-            if(!usuario.getClases().contains(clase)){
+        if (usuario != null && clase != null) {
+            if (!usuario.getClases().contains(clase)) {
                 usuario.getClases().add(clase);
             }
-            if(!clase.getUsuarios().contains(usuario)){
+            if (!clase.getUsuarios().contains(usuario)) {
                 clase.getUsuarios().add(usuario);
             }
 
@@ -56,11 +60,11 @@ public class ClaseServicio implements IClaseServicio {
 
     @Override
     public void cancelarClase(Long id_usuario, Long id_clase) {
-        Usuario usuario= usuarioServicio.buscarPorId(id_usuario);
+        Usuario usuario = usuarioServicio.buscarPorId(id_usuario);
         Clase clase = buscarClase(id_clase);
 
-        for (Clase c: usuario.getClases()){
-            if(c.getId()== clase.getId()){
+        for (Clase c : usuario.getClases()) {
+            if (c.getId() == clase.getId()) {
                 c.setActivo(false);
             }
         }
@@ -78,4 +82,17 @@ public class ClaseServicio implements IClaseServicio {
     public void guardarClase(Clase clase) {
         claseDao.save(clase);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Optional<Clase> buscarPorEntrenador(String entrenador) {
+        return claseDao.findByEntrenador(entrenador);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Clase> listarClasePaginados(Pageable pageable) {
+        return claseDao.findAll(pageable);
+    }
+
 }
