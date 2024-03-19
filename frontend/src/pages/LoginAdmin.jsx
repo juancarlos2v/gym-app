@@ -1,8 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom'
 import logo from "/logo.png"
 import styles from '@styles/loginpage.module.css'
 
+const baseURL = "http://localhost:8080";
+
 const Index = () => {
+    const navigate = useNavigate();
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
 
@@ -17,7 +21,18 @@ const Index = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        //axios.post()
+        fetch(baseURL, {
+            'method': 'POST'
+        })
+            .then((response) => {
+                return response.json;
+            })
+            .then(() => {
+                navigate('/dashboard')
+            })
+            .catch((e) => {
+                setPassword(e);
+            })
 
     };
 
