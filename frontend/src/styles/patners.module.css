@@ -1,0 +1,45 @@
+.container {
+  padding: var(--padding);
+  margin-top: 5rem;
+  border-bottom: solid 6rem var(--yellow);
+}
+
+.container p {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem !important;
+}
+
+.container img {
+  filter: grayscale(100%);
+}
+
+.images {
+  margin-bottom: 3rem;
+}
+
+.nc {
+  width: 13%;
+}
+
+.nb {
+  width: 20%;
+}
+
+.med {
+  width: 25%;
+}
+.ba {
+  width: 30%;
+}
+
+@media screen and (max-width: 991.98px) {
+  .container {
+    padding: var(--padding-responsive);
+    margin-top: 0rem;
+  }
+  .container p {
+    margin-bottom: 0;
+  }
+}

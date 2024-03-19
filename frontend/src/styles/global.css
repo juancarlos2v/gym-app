@@ -12,6 +12,7 @@
   --orange: #e5843e;
   --orange-dark: #724233;
   --padding: 0rem 10rem 0 10rem;
+  --padding-responsive: 3rem;
   --button-border: 2rem 2rem 2rem 2rem;
 }
 p {

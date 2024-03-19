@@ -25,3 +25,49 @@
   -webkit-box-shadow: 129px 1px 41px -43px rgba(0, 0, 0, 0.959) inset;
   -moz-box-shadow: 129px 1px 41px -43px rgba(0, 0, 0, 0.959) inset;
 }
+
+@media screen and (max-width: 991.98px) {
+  .boxImage {
+    position: relative;
+    height: 30rem;
+    box-shadow: none;
+  }
+  .overlay {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(
+      0,
+      0,
+      0,
+      0.76
+    ); /* Color de fondo oscuro con transparencia */
+    backdrop-filter: blur(
+      0px
+    ); /* Ajusta el valor de desenfoque según lo necesites */
+  }
+  .text {
+    position: relative;
+    z-index: 99; /* Asegura que el texto esté encima del fondo oscuro */
+    color: white; /* Color de texto */
+    background-color: transparent; /* Fondo transparente */
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .text > p {
+    color: var(--white);
+    font-size: 2rem;
+    font-weight: 800;
+    text-align: center;
+  }
+
+  .text {
+    padding: 5rem;
+    text-align: center;
+  }
+}

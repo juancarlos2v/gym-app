@@ -1,0 +1,26 @@
+.container {
+  background-color: var(--black);
+  padding: var(--padding);
+  padding-top: 6rem;
+  padding-bottom: 3rem;
+}
+
+.container p {
+  color: var(--white);
+}
+
+.container a {
+  color: var(--white);
+}
+
+.text {
+  border-top: solid 0.1rem var(--white);
+  margin-top: 4rem;
+  padding-top: 1rem;
+}
+
+@media screen and (max-width: 991.98px) {
+  .container {
+    padding: var(--padding-responsive);
+  }
+}
