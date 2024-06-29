@@ -1,7 +1,7 @@
 import styles from "@styles/list.module.css"
 import axios from 'axios';
 import { useEffect, useState } from "react";
-import { useListContext } from "../../Context/ListContext";
+import { useListContext } from "@context/ListContext";
 import MemberModal from "../MemberModal";
 import InfoMember from "../InfoMember";
 import ClassModal from "../ClassModal";

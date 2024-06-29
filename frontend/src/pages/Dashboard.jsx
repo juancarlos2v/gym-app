@@ -4,9 +4,8 @@ import CardM from "@components/dashboard/CardM"
 import Main from "@components/dashboard/Main"
 import List from "@components/dashboard/List"
 import { ListProvider } from "@context/ListContext"
+
 const Dashboard = () => {
-
-
 
     return (
         <ListProvider>
