@@ -10,6 +10,7 @@ import Nav from "@components/home/Nav"
 const Home = () => {
     return (
         <>
+            <title>GYMOVE</title>
             <Nav />
             <Banner />
             <About />

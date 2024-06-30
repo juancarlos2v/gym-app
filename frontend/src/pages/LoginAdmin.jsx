@@ -36,7 +36,8 @@ const Index = () => {
 
     };
 
-    return (
+    return <>
+        <title>GYMOVE </title>
         <div className="d-flex">
             <div className="d-flex flex-column col-4 justify-content-center align-items-center">
                 <div className="d-flex align-items-center justify-content-center">
@@ -72,7 +73,7 @@ const Index = () => {
             </div>
 
         </div>
-    )
+    </>
 }
 
 export default Index

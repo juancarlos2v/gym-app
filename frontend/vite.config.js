@@ -7,7 +7,7 @@ import path from "path";
 export default defineConfig({
   plugins: [react()],
   build: {
-    outDir: "../src/main/resources/static",
+    //outDir: "../src/main/resources/static",
     watch: {
       include: "src/**",
       exclude: "node_modules/**, .git/**, dist/**, .vscode/**",

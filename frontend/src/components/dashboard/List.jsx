@@ -293,8 +293,9 @@ const List = () => {
 
     return (
         <>
-            <div>
-                <div className={`${styles.titlesearch} d-flex`}>
+
+            <div className={`${styles.contenido} flex-grow-1 overflow-auto mt-4`}>
+                <div className={`${styles.titlesearch} d-flex ${styles.scrollable}`}>
                     <h3 className="col-7">Lista de {list === 'M' ? <span>miembros</span> : <span>clases</span>}</h3>
                     <div className={`${styles.buttons} d-flex`} >
                         {list == 'M' ?

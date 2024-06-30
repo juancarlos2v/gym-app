@@ -1,4 +1,4 @@
-import logo from "/logo.png"
+//import logo from "/logo.png"
 import style from "@styles/dashboardmain.module.css"
 import { useState, useEffect } from "react";
 import { useListContext } from "@context/ListContext";
@@ -43,24 +43,24 @@ const Main = () => {
 
         <div className={`${style.main}  d-flex flex-column justify-content-between`}>
             <div className={`${style.background}  mt-5 d-flex flex-column justify-content-center align-items-center`} >
-                <img src={logo} alt="gymove" />
+                {/* <img src={logo} alt="gymove" /> */}
                 <p className={style.title}>GYMOVE</p>
             </div>
-            <div >
-                <div className="d-flex flex-column justify-content-end">
-                    <button
-                        onClick={showMembers}
-                        className={`${style.buttons}
+
+            <div className="d-flex flex-column justify-content-end">
+                <button
+                    onClick={showMembers}
+                    className={`${style.buttons}
                         ${activeButton === 'members' ? style.active : ''}`} >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-military-award" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '15px' }}>
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M12 13m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
-                            <path d="M8.5 10.5l-1 -2.5h-5.5l2.48 5.788a2 2 0 0 0 1.84 1.212h2.18" />
-                            <path d="M15.5 10.5l1 -2.5h5.5l-2.48 5.788a2 2 0 0 1 -1.84 1.212h-2.18" />
-                        </svg>
-                        Miembros
-                    </button >
-                </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-military-award" width="30" height="30" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '15px' }}>
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M12 13m-4 0a4 4 0 1 0 8 0a4 4 0 1 0 -8 0" />
+                        <path d="M8.5 10.5l-1 -2.5h-5.5l2.48 5.788a2 2 0 0 0 1.84 1.212h2.18" />
+                        <path d="M15.5 10.5l1 -2.5h5.5l-2.48 5.788a2 2 0 0 1 -1.84 1.212h-2.18" />
+                    </svg>
+                    Miembros
+                </button >
+
 
 
                 <div className={`${style.border} d-flex flex-column justify-content-end `}>

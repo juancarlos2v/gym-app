@@ -49,3 +49,12 @@ td > button:hover svg {
 .buttons > input {
   border-radius: 0%;
 }
+
+.scrollable {
+  overflow-y: hidden; /* Habilitar scroll vertical interno */
+}
+
+.contenido {
+  margin: 0;
+  overflow: hidden; /* Prevenir el scroll en el body */
+}
