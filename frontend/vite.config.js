@@ -40,7 +40,7 @@ export default defineConfig({
       },
       {
         find: "@context",
-        replacement: path.resolve(path.join(__dirname, "/src/context")),
+        replacement: path.resolve(path.join(__dirname, "/src/Context")),
       },
     ],
   },
