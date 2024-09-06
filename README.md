@@ -12,8 +12,6 @@ Con su interfaz minimalista, GYMOVE es fácil de aprender y utilizar, eliminando
 * Gestión de membresías con su respectivo tipo, día de vencimiento y estado.
 * Rápida visualización del estado de las membresías (pagadas o en deuda).
 
-<img src="https://pixeldrain.com/api/file/DAtYWPUJ" />
-
 ## Tecnologías
 ### Frontend
 * Figma - React
