@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     //outDir: "../src/main/resources/static",
+    outDir: 'dist',
     watch: {
       include: "src/**",
       exclude: "node_modules/**, .git/**, dist/**, .vscode/**",
