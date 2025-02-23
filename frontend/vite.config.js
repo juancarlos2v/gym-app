@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import react from "@vitejs/plugin-react";
+import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 import path from "path";
 
@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     //outDir: "../src/main/resources/static",
+    outDir: 'dist',
     watch: {
       include: "src/**",
       exclude: "node_modules/**, .git/**, dist/**, .vscode/**",
