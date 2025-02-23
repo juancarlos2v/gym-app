@@ -1,6 +1,6 @@
-import NavRes from "./NavRes"
 import logo from "/logo.png"
 import styles from "@styles/nav.module.css"
+import NavRes from "@components/home/NavRes"
 
 const Nav = () => {
   return (
